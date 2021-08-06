@@ -21,8 +21,8 @@ public class Aluno extends Pessoa{
 	public Aluno() {
 	}
 
-	public Aluno(Integer id,BioTipo biotipo, String nome, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc) {
-		super(id, nome, cpf, data_nasc, data_cad, sexo);
+	public Aluno(Integer id,BioTipo biotipo, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc) {
+		super(id, nome, email, cpf, data_nasc, data_cad, sexo);
 		this.biotipo = (biotipo==null) ? null : biotipo;
 		this.peso = peso;
 		this.altura = altura;

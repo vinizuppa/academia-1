@@ -11,8 +11,8 @@ public class Instrutor extends Pessoa{
 	public Instrutor() {
 	}
 	
-	public Instrutor(Integer id,String nome, String cpf, Date data_nasc, Date data_cad, char sexo, String NumCrf) {
-		super(id, nome, cpf, data_nasc, data_cad, sexo);
+	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String NumCrf) {
+		super(id, nome, email, cpf, data_nasc, data_cad, sexo);
 		this.setNumCrf(NumCrf);
 	}
 

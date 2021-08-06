@@ -28,6 +28,7 @@ public abstract class Pessoa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private String email;
 	private String cpf;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_nasc;
@@ -47,10 +48,11 @@ public abstract class Pessoa implements Serializable{
 	public Pessoa() {
 	}
 
-	public Pessoa(Integer id, String nome, String cpf, Date data_nasc, Date data_cad, char sexo) {
+	public Pessoa(Integer id, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.email = email;
 		this.cpf = cpf;
 		this.data_nasc = data_nasc;
 		this.data_cad = data_cad;
@@ -71,6 +73,14 @@ public abstract class Pessoa implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCpf() {

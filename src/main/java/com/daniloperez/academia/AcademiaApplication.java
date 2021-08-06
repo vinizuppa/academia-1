@@ -59,7 +59,7 @@ public class AcademiaApplication implements CommandLineRunner{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");//Mascara de formatação para instanciar data
 		//Instanciando 1 Aluno
-		Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100);
+		Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "vcordeiro12@gmail.com", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100);
 		al1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));//Instanciando 2 Telefones)
 		
 		//Instanciando 2 endereços
@@ -76,7 +76,7 @@ public class AcademiaApplication implements CommandLineRunner{
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 		
 		//Instanciando 1 Instrutor
-		Instrutor is1 = new Instrutor(null, "Douglas Costa", "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588");
+		Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588");
 		is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));
 		
 		//Instanciando Endereço
