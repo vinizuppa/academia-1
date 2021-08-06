@@ -12,24 +12,26 @@ import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
 import com.daniloperez.academia.domain.Estado;
-import com.daniloperez.academia.domain.Pessoa;
+import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.enums.BioTipo;
+import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.CidadeRepository;
 import com.daniloperez.academia.repositories.EnderecoRepository;
 import com.daniloperez.academia.repositories.EstadoRepository;
-import com.daniloperez.academia.repositories.PessoaRepository;
+import com.daniloperez.academia.repositories.InstrutorRepository;
 
 @SpringBootApplication
 public class AcademiaApplication implements CommandLineRunner{
 	@Autowired
-	private PessoaRepository pessoaRepository;
+	private AlunoRepository alunoRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
+	@Autowired
+	private InstrutorRepository instrutorRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(AcademiaApplication.class, args);
 	}
@@ -57,7 +59,7 @@ public class AcademiaApplication implements CommandLineRunner{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");//Mascara de formatação para instanciar data
 		//Instanciando 1 Aluno
-		Pessoa al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100);
+		Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100);
 		al1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));//Instanciando 2 Telefones)
 		
 		//Instanciando 2 endereços
@@ -68,9 +70,24 @@ public class AcademiaApplication implements CommandLineRunner{
 		al1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
 		//Salvando Aluno no banco
-		pessoaRepository.saveAll(Arrays.asList(al1));
+		alunoRepository.saveAll(Arrays.asList(al1));
 		
 		//Salvando Endereco no banco
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		
+		//Instanciando 1 Instrutor
+		Instrutor is1 = new Instrutor(null, "Douglas Costa", "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588");
+		is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));
+		
+		//Instanciando Endereço
+		Endereco e3 = new Endereco (null, "Rua Boituva", "128", "Próximo Rodoviária", "Vila Operária", "38220834", is1, c2);
+		
+		//Indicando qual os endereços do instrutor
+		is1.getEnderecos().addAll(Arrays.asList(e3));
+		//Salvando Aluno no banco
+		instrutorRepository.saveAll(Arrays.asList(is1));
+				
+		//Salvando Endereco no banco
+		enderecoRepository.saveAll(Arrays.asList(e3));
 	}
 }
