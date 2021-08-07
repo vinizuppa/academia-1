@@ -2,23 +2,18 @@ package com.daniloperez.academia.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.daniloperez.academia.domain.enums.BioTipo;
-import com.daniloperez.academia.services.validation.AlunoInsert;
+import com.daniloperez.academia.services.validation.InstrutorInsert;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@AlunoInsert
-public class AlunoNewDTO implements Serializable{
+@InstrutorInsert
+public class InstrutorNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -33,8 +28,7 @@ public class AlunoNewDTO implements Serializable{
 	@NotEmpty(message="Preenchimento obrigatório")
 	@CPF
 	private String cpf;
-	@Enumerated(EnumType.STRING)
-	private BioTipo biotipo;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Past
 	private Date data_nasc;
@@ -43,15 +37,9 @@ public class AlunoNewDTO implements Serializable{
 	
 	private char sexo;
 	
-	@Positive(message="Peso incorreto! Insira valor maior que 0")
-	private double peso;
-	
-	@Positive(message="Altura incorreta! Insira valor maior que 0")
-	private double altura;
-	
-	@Positive(message="IMC incorreto! Insira valor maior que 0")
-	private double imc;
-	
+	@NotEmpty(message="Preenchimento obrigatório")
+	private String numCrf;
+
 	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
 	
@@ -74,7 +62,7 @@ public class AlunoNewDTO implements Serializable{
 	
 	private Integer cidadeId;
 	
-	public AlunoNewDTO() {
+	public InstrutorNewDTO() {
 		
 	}
 
@@ -102,14 +90,6 @@ public class AlunoNewDTO implements Serializable{
 		this.cpf = cpf;
 	}
 
-	public BioTipo getBiotipo() {
-		return biotipo;
-	}
-
-	public void setBiotipo(BioTipo biotipo) {
-		this.biotipo = biotipo;
-	}
-
 	public Date getData_nasc() {
 		return data_nasc;
 	}
@@ -134,28 +114,12 @@ public class AlunoNewDTO implements Serializable{
 		this.sexo = sexo;
 	}
 
-	public double getPeso() {
-		return peso;
+	public String getNumCrf() {
+		return numCrf;
 	}
 
-	public void setPeso(double peso) {
-		this.peso = peso;
-	}
-
-	public double getAltura() {
-		return altura;
-	}
-
-	public void setAltura(double altura) {
-		this.altura = altura;
-	}
-
-	public double getImc() {
-		return imc;
-	}
-
-	public void setImc(double imc) {
-		this.imc = imc;
+	public void setNumCrf(String numCrf) {
+		this.numCrf = numCrf;
 	}
 
 	public String getLogradouro() {
@@ -229,6 +193,7 @@ public class AlunoNewDTO implements Serializable{
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
 	}
+
 	
 	
 }

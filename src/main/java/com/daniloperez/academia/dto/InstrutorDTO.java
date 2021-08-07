@@ -6,10 +6,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.daniloperez.academia.domain.Aluno;
+import com.daniloperez.academia.domain.Instrutor;
 
-
-public class AlunoDTO implements Serializable{
+public class InstrutorDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -21,11 +20,11 @@ public class AlunoDTO implements Serializable{
 	@Email(message="Email inválido")
 	private String email;
 	
-	public AlunoDTO() {
+	public InstrutorDTO() {
 		
 	}
 	
-	public AlunoDTO(Aluno obj) {
+	public InstrutorDTO(Instrutor obj) {
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();

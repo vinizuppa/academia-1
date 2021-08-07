@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public abstract class Pessoa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	@Column(unique=true)//Anotação para definir que E-mail é unico
 	private String email;
 	private String cpf;
 	@JsonFormat(pattern = "dd/MM/yyyy")
