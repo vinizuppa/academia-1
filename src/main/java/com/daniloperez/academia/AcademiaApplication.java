@@ -9,14 +9,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.daniloperez.academia.domain.Aluno;
+import com.daniloperez.academia.domain.Categoria;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
+import com.daniloperez.academia.domain.Estabelecimento;
 import com.daniloperez.academia.domain.Estado;
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.enums.BioTipo;
 import com.daniloperez.academia.repositories.AlunoRepository;
+import com.daniloperez.academia.repositories.CategoriaRepository;
 import com.daniloperez.academia.repositories.CidadeRepository;
 import com.daniloperez.academia.repositories.EnderecoRepository;
+import com.daniloperez.academia.repositories.EstabelecimentoRepository;
 import com.daniloperez.academia.repositories.EstadoRepository;
 import com.daniloperez.academia.repositories.InstrutorRepository;
 
@@ -32,6 +36,11 @@ public class AcademiaApplication implements CommandLineRunner{
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private InstrutorRepository instrutorRepository;
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private EstabelecimentoRepository estabelecimentoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AcademiaApplication.class, args);
 	}
@@ -89,5 +98,31 @@ public class AcademiaApplication implements CommandLineRunner{
 				
 		//Salvando Endereco no banco
 		enderecoRepository.saveAll(Arrays.asList(e3));
+		
+		// Instanciado 3 Categorias
+		Categoria cat1 = new Categoria(null, "Musculação");
+		Categoria cat2 = new Categoria(null, "Dança");
+		Categoria cat3 = new Categoria(null, "Crossfit");
+		
+		// Instancianto 3 Estabelecimentos
+		Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"));
+		Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"));
+		Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"));
+		
+		// Criando associação de Categorias com Estabelecimentos
+		cat1.getEstabelecimentos().addAll(Arrays.asList(estab3));
+		cat2.getEstabelecimentos().addAll(Arrays.asList(estab2));
+		cat3.getEstabelecimentos().addAll(Arrays.asList(estab1, estab3));
+		
+		// Criando associação de Estabelecimentos com Categorias
+		estab1.getCategorias().addAll(Arrays.asList(cat3));
+		estab2.getCategorias().addAll(Arrays.asList(cat2));
+		estab3.getCategorias().addAll(Arrays.asList(cat1, cat3));
+		
+		// Salvando Categorias no banco
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
+		// Salvando Estabelecientos no banco
+		estabelecimentoRepository.saveAll(Arrays.asList(estab1, estab2, estab3));
 	}
 }
