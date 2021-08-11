@@ -8,7 +8,6 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 public class Instrutor extends Pessoa{
 	private static final long serialVersionUID = 1L;
@@ -19,6 +18,7 @@ public class Instrutor extends Pessoa{
 	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 	
 	public Instrutor() {
+		
 	}
 	
 	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf) {

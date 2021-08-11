@@ -41,6 +41,7 @@ public class AcademiaApplication implements CommandLineRunner{
 	@Autowired
 	private EstabelecimentoRepository estabelecimentoRepository;
 	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AcademiaApplication.class, args);
 	}
@@ -93,16 +94,16 @@ public class AcademiaApplication implements CommandLineRunner{
 		Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"));
 		Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"));
 		Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"));
-		
+				
 		//Instanciando 3 Instrutores
 		Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588");
 		is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));
 		
 		Instrutor is2 = new Instrutor(null, "João da Silva", "joão@hotmail.com" , "52768915084", sdf.parse("08/09/1984"), sdf.parse("05/08/2021"), 'F', "88544");
-		is1.getTelefones().addAll(Arrays.asList("998154625", "998651520"));
+		is2.getTelefones().addAll(Arrays.asList("998154625", "998651520"));
 		
 		Instrutor is3 = new Instrutor(null, "Pedro Santos", "pedro@hotmail.com" , "69278608009", sdf.parse("26/12/1991"), sdf.parse("05/08/2021"), 'M', "54488");
-		is1.getTelefones().addAll(Arrays.asList("995153526", "995451585"));
+		is3.getTelefones().addAll(Arrays.asList("995153526", "995451585"));
 		
 		//Instanciando Endereço
 		Endereco e3 = new Endereco (null, "Rua Boituva", "128", "Próximo Rodoviária", "Vila Operária", "38220834", is1, c2);
