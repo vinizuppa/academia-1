@@ -1,12 +1,22 @@
 package com.daniloperez.academia.domain;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 public class Instrutor extends Pessoa{
 	private static final long serialVersionUID = 1L;
 	private String numCrf;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="instrutores")
+	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 	
 	public Instrutor() {
 	}
@@ -24,5 +34,11 @@ public class Instrutor extends Pessoa{
 		this.numCrf = numCrf;
 	}
 
+	public List<Estabelecimento> getEstabelecimentos() {
+		return estabelecimentos;
+	}
 
+	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
+		this.estabelecimentos = estabelecimentos;
+	}
 }

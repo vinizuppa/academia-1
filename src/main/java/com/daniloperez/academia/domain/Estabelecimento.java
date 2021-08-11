@@ -35,6 +35,13 @@ public class Estabelecimento implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@ManyToMany
+	@JoinTable(name = "ESTABELECIMENTO_INSTRUTOR",
+		joinColumns = @JoinColumn(name = "estabelecimento_id"),
+		inverseJoinColumns = @JoinColumn(name = "instrutor_id")
+	)
+	private List<Instrutor> instrutores = new ArrayList<>();
+	
 	public Estabelecimento() {
 		
 	}
@@ -104,6 +111,14 @@ public class Estabelecimento implements Serializable {
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+
+	public List<Instrutor> getInstrutores() {
+		return instrutores;
+	}
+
+	public void setInstrutores(List<Instrutor> instrutores) {
+		this.instrutores = instrutores;
 	}
 
 	@Override
