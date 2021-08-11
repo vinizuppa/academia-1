@@ -58,8 +58,6 @@ public class InstrutorNewDTO implements Serializable{
 	
 	private String telefone2;
 	
-	private String telefone3;
-	
 	private Integer cidadeId;
 	
 	public InstrutorNewDTO() {
@@ -176,14 +174,6 @@ public class InstrutorNewDTO implements Serializable{
 
 	public void setTelefone2(String telefone2) {
 		this.telefone2 = telefone2;
-	}
-
-	public String getTelefone3() {
-		return telefone3;
-	}
-
-	public void setTelefone3(String telefone3) {
-		this.telefone3 = telefone3;
 	}
 
 	public Integer getCidadeId() {

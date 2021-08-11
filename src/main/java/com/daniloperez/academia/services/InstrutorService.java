@@ -8,9 +8,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
+import com.daniloperez.academia.domain.Instrutor;
+import com.daniloperez.academia.dto.InstrutorDTO;
 import com.daniloperez.academia.dto.InstrutorNewDTO;
 import com.daniloperez.academia.repositories.EnderecoRepository;
 import com.daniloperez.academia.repositories.InstrutorRepository;
@@ -58,10 +59,6 @@ public class InstrutorService {
 			ins.getTelefones().add(objDto.getTelefone2());
 		}
 			
-		if(objDto.getTelefone3()!=null) {
-			ins.getTelefones().add(objDto.getTelefone3());
-		}
-			
 		return ins;
 	}
 		
@@ -75,4 +72,23 @@ public class InstrutorService {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
 		}
 	}	
+	
+	//Alterar Aluno
+		public Instrutor update(Instrutor obj) {
+			Instrutor newObj = find(obj.getId());
+			updateData(newObj, obj);
+			return repo.save(newObj);	
+		}
+		
+		private void updateData(Instrutor newObj, Instrutor obj) {//função auxiliar para atualizar o instrutor e manter dados que não foram modificados.
+			newObj.setNome(obj.getNome());
+			newObj.setEmail(obj.getEmail());
+			newObj.setSexo(obj.getSexo());
+			newObj.setNumCrf(obj.getNumCrf());
+		}
+		
+		public Instrutor fromDTO(InstrutorDTO objDto) {
+			 Instrutor inst = new Instrutor(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getNumCrf());
+			 return inst;
+		}
 }

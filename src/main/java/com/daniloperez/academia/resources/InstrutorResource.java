@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.dto.InstrutorDTO;
 import com.daniloperez.academia.dto.InstrutorNewDTO;
@@ -63,4 +62,13 @@ public class InstrutorResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}	
+	
+	//Configurando o metodo PUT para Instrutor
+		@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+		public ResponseEntity<Void> update(@Valid @RequestBody InstrutorDTO objDto, @PathVariable Integer id){
+			Instrutor obj = service.fromDTO(objDto);
+			obj.setId(id);
+			obj = service.update(obj);
+			return ResponseEntity.noContent().build();
+		}
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
+import com.daniloperez.academia.dto.AlunoDTO;
 import com.daniloperez.academia.dto.AlunoNewDTO;
 import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.EnderecoRepository;
@@ -58,10 +59,6 @@ public class AlunoService {
 			al1.getTelefones().add(objDto.getTelefone2());
 		}
 		
-		if(objDto.getTelefone3()!=null) {
-			al1.getTelefones().add(objDto.getTelefone3());
-		}
-		
 		return al1;
 	}
 	
@@ -78,4 +75,25 @@ public class AlunoService {
 		}
 	}
 	
+	//Alterar Aluno
+	public Aluno update(Aluno obj) {
+		Aluno newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	private void updateData(Aluno newObj, Aluno obj) {//função auxiliar para atualizar o aluno e manter dados que não foram modificados.
+		newObj.setBiotipo(obj.getBiotipo());
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+		newObj.setSexo(obj.getSexo());
+		newObj.setPeso(obj.getPeso());
+		newObj.setAltura(obj.getAltura());
+		newObj.setImc(obj.getImc());
+	}
+	
+	public Aluno fromDTO(AlunoDTO objDto) {
+		 Aluno al1 = new Aluno(objDto.getId(), objDto.getBiotipo(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getPeso(), objDto.getAltura(), objDto.getImc());
+		 return al1;
+	}
 }

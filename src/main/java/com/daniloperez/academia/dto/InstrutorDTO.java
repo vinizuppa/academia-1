@@ -7,7 +7,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.daniloperez.academia.domain.Instrutor;
+import com.daniloperez.academia.services.validation.InstrutorUpdate;
 
+@InstrutorUpdate
 public class InstrutorDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -20,6 +22,11 @@ public class InstrutorDTO implements Serializable{
 	@Email(message="Email inválido")
 	private String email;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
+	private String numCrf;
+	
+	private char sexo;
+	
 	public InstrutorDTO() {
 		
 	}
@@ -28,6 +35,8 @@ public class InstrutorDTO implements Serializable{
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();
+		numCrf = obj.getNumCrf();
+		sexo = obj.getSexo();
 	}
 
 	public Integer getId() {
@@ -52,6 +61,22 @@ public class InstrutorDTO implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getNumCrf() {
+		return numCrf;
+	}
+
+	public void setNumCrf(String numCrf) {
+		this.numCrf = numCrf;
 	}
 	
 	
