@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.daniloperez.academia.domain.Categoria;
 import com.daniloperez.academia.domain.Estabelecimento;
 import com.daniloperez.academia.repositories.EstabelecimentoRepository;
 import com.daniloperez.academia.services.exceptions.ObjectNotFoundException;
