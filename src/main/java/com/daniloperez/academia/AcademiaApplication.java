@@ -12,6 +12,7 @@ import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.Categoria;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
+import com.daniloperez.academia.domain.EnderecoEstabelecimento;
 import com.daniloperez.academia.domain.Estabelecimento;
 import com.daniloperez.academia.domain.Estado;
 import com.daniloperez.academia.domain.Instrutor;
@@ -19,6 +20,7 @@ import com.daniloperez.academia.domain.enums.BioTipo;
 import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.CategoriaRepository;
 import com.daniloperez.academia.repositories.CidadeRepository;
+import com.daniloperez.academia.repositories.EnderecoEstabelecimentoRepository;
 import com.daniloperez.academia.repositories.EnderecoRepository;
 import com.daniloperez.academia.repositories.EstabelecimentoRepository;
 import com.daniloperez.academia.repositories.EstadoRepository;
@@ -40,6 +42,8 @@ public class AcademiaApplication implements CommandLineRunner{
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private EstabelecimentoRepository estabelecimentoRepository;
+	@Autowired
+	private EnderecoEstabelecimentoRepository enderecoEstabelecimentoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -89,12 +93,25 @@ public class AcademiaApplication implements CommandLineRunner{
 		Categoria cat1 = new Categoria(null, "Musculação");
 		Categoria cat2 = new Categoria(null, "Dança");
 		Categoria cat3 = new Categoria(null, "Crossfit");
+		
+		// Instanciando 3 Endereços de Estabelecimentos
+		EnderecoEstabelecimento endEstab1 = new EnderecoEstabelecimento (null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", c1);
+		EnderecoEstabelecimento endEstab2 = new EnderecoEstabelecimento (null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", c2);
+		EnderecoEstabelecimento endEstab3 = new EnderecoEstabelecimento (null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", c3);
+		
+		// Salvando Endereços dos Estabelecimentos no banco
+		enderecoEstabelecimentoRepository.saveAll(Arrays.asList(endEstab1, endEstab2, endEstab3));
 				
 		// Instancianto 3 Estabelecimentos
-		Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"));
-		Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"));
-		Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"));
-				
+		Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"), endEstab1);
+		estab1.getTelefones().addAll(Arrays.asList("14665239520", "18569253462"));
+		
+		Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"), endEstab2);
+		estab2.getTelefones().addAll(Arrays.asList("14995642031", "14997652380"));
+		
+		Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"), endEstab3);
+		estab3.getTelefones().addAll(Arrays.asList("11884625310", "2155926644"));
+		
 		//Instanciando 3 Instrutores
 		Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588");
 		is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));

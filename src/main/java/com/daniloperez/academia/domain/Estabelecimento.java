@@ -3,8 +3,13 @@ package com.daniloperez.academia.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Estabelecimento implements Serializable {
@@ -26,6 +32,14 @@ public class Estabelecimento implements Serializable {
 	private String cnpj;
 	private Date data_fundacao;
 	private Date data_cadastro;
+	
+	@OneToOne
+	@JoinColumn(name="enderecoEstabelecimento_id")
+	private EnderecoEstabelecimento enderecoEstabelecimento;
+	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE_ESTABELECIMENTO")
+	private Set<String> telefones = new HashSet<>();
 	
 	@ManyToMany
 	@JoinTable(name = "ESTABELECIMENTO_CATEGORIA",
@@ -46,7 +60,7 @@ public class Estabelecimento implements Serializable {
 	}
 
 	public Estabelecimento(Integer id, String nome_fantasia, String razao_social, String cnpj, Date data_fundacao,
-			Date data_cadastro) {
+			Date data_cadastro, EnderecoEstabelecimento enderecoEstabelecimento) {
 		super();
 		this.id = id;
 		this.nome_fantasia = nome_fantasia;
@@ -54,6 +68,7 @@ public class Estabelecimento implements Serializable {
 		this.cnpj = cnpj;
 		this.data_fundacao = data_fundacao;
 		this.data_cadastro = data_cadastro;
+		this.setEnderecoEstabelecimento(enderecoEstabelecimento);
 	}
 
 	public Integer getId() {
@@ -118,6 +133,22 @@ public class Estabelecimento implements Serializable {
 
 	public void setInstrutores(List<Instrutor> instrutores) {
 		this.instrutores = instrutores;
+	}
+
+	public EnderecoEstabelecimento getEnderecoEstabelecimento() {
+		return enderecoEstabelecimento;
+	}
+
+	public void setEnderecoEstabelecimento(EnderecoEstabelecimento enderecoEstabelecimento) {
+		this.enderecoEstabelecimento = enderecoEstabelecimento;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override
