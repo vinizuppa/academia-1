@@ -1,12 +1,17 @@
 package com.daniloperez.academia.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 
 import com.daniloperez.academia.domain.enums.BioTipo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Aluno extends Pessoa{
@@ -17,6 +22,10 @@ public class Aluno extends Pessoa{
 	@Enumerated(EnumType.STRING)
 	private BioTipo biotipo;
 	private double imc;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "aluno", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar o aluno do banco deve ser apagado as avaliações dele também
+	private List<AvaliacaoAluno> avaliacoes = new ArrayList<>();
 	
 	public Aluno() {
 	}
@@ -59,6 +68,14 @@ public class Aluno extends Pessoa{
 
 	public void setImc(double imc) {
 		this.imc = imc;
+	}
+
+	public List<AvaliacaoAluno> getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(List<AvaliacaoAluno> avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 	
 	
