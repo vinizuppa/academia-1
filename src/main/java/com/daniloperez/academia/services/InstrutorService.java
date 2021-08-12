@@ -1,5 +1,6 @@
 package com.daniloperez.academia.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,7 @@ public class InstrutorService {
 	@Transactional
 	public Instrutor insert(Instrutor obj) {
 		obj.setId(null);
+		obj.setData_cad(new Date());
 		obj = repo.save(obj);
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;

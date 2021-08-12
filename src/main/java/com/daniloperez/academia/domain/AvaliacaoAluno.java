@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -19,9 +22,16 @@ public class AvaliacaoAluno implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Positive(message="Altura incorreta! Insira valor maior que 0")
 	private double altura;
+	@Positive(message="Peso incorreto! Insira valor maior que 0")
 	private double peso;
+	@Positive(message="IMC incorreto! Insira valor maior que 0")
 	private double imc;
+	
+	@NotEmpty(message="Preenchimento obrigatório") 
+	@Size(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String obs;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data;

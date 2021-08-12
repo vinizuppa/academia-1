@@ -17,7 +17,7 @@ public class Instrutor extends Pessoa{
 	private String numCrf;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy="instrutor")
+	@ManyToMany(mappedBy="instrutores")
 	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 	
 	@JsonIgnore

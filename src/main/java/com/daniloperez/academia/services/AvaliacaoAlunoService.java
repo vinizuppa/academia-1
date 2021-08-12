@@ -2,6 +2,7 @@ package com.daniloperez.academia.services;
 
 
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class AvaliacaoAlunoService {
 	//Incluir Avaliação de Aluno
 	public AvaliacaoAluno insert(AvaliacaoAluno obj) {
 		obj.setId(null);
+		obj.setData(new Date());
 		obj = repo.save(obj);
 		return obj;
 	}
