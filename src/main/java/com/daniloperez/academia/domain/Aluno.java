@@ -14,11 +14,12 @@ import com.daniloperez.academia.domain.enums.BioTipo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Aluno extends Pessoa{
+public class Aluno extends Usuario{
 	private static final long serialVersionUID = 1L;
 
 	private double peso;
 	private double altura;
+	private String cpf;
 	@Enumerated(EnumType.STRING)
 	private BioTipo biotipo;
 	private double imc;
@@ -30,12 +31,13 @@ public class Aluno extends Pessoa{
 	public Aluno() {
 	}
 
-	public Aluno(Integer id,BioTipo biotipo, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc) {
-		super(id, nome, email, cpf, data_nasc, data_cad, sexo);
+	public Aluno(Integer id,BioTipo biotipo, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc, String senha) {
+		super(id, nome, email, data_nasc, data_cad, sexo, senha);
 		this.biotipo = (biotipo==null) ? null : biotipo;
 		this.peso = peso;
 		this.altura = altura;
 		this.imc = imc;
+		this.cpf = cpf;
 	}
 
 	public double getPeso() {
@@ -76,6 +78,14 @@ public class Aluno extends Pessoa{
 
 	public void setAvaliacoes(List<AvaliacaoAluno> avaliacoes) {
 		this.avaliacoes = avaliacoes;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	

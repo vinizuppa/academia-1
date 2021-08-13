@@ -51,7 +51,7 @@ public class AlunoService {
 	
 	//Incluir aluno por DTO
 	public Aluno fromDTO(AlunoNewDTO objDto) {
-		Aluno al1 = new Aluno(null, objDto.getBiotipo(), objDto.getNome(), objDto.getEmail(), objDto.getCpf(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), objDto.getPeso(), objDto.getAltura(), objDto.getImc());
+		Aluno al1 = new Aluno(null, objDto.getBiotipo(), objDto.getNome(), objDto.getEmail(), objDto.getCpf(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), objDto.getPeso(), objDto.getAltura(), objDto.getImc(), objDto.getSenha());
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), al1, cid);
 		al1.getEnderecos().add(end);
@@ -92,10 +92,11 @@ public class AlunoService {
 		newObj.setPeso(obj.getPeso());
 		newObj.setAltura(obj.getAltura());
 		newObj.setImc(obj.getImc());
+		newObj.setSenha(obj.getSenha());
 	}
 	
 	public Aluno fromDTO(AlunoDTO objDto) {
-		 Aluno al1 = new Aluno(objDto.getId(), objDto.getBiotipo(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getPeso(), objDto.getAltura(), objDto.getImc());
+		 Aluno al1 = new Aluno(objDto.getId(), objDto.getBiotipo(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getPeso(), objDto.getAltura(), objDto.getImc(), objDto.getSenha());
 		 return al1;
 	}
 }

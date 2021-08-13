@@ -32,6 +32,8 @@ public class AlunoDTO implements Serializable{
 	
 	private char sexo;
 	
+	private String senha;
+	
 	@Positive(message="Peso incorreto! Insira valor maior que 0")
 	private double peso;
 	
@@ -54,6 +56,7 @@ public class AlunoDTO implements Serializable{
 		peso = obj.getPeso();
 		altura = obj.getAltura();
 		imc = obj.getImc();
+		setSenha(obj.getSenha());
 	}
 
 	public Integer getId() {
@@ -118,6 +121,14 @@ public class AlunoDTO implements Serializable{
 
 	public void setImc(double imc) {
 		this.imc = imc;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)//Anotação para definir que essa é a superclasse
-public abstract class Pessoa implements Serializable{
+public abstract class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,34 +31,34 @@ public abstract class Pessoa implements Serializable{
 	private String nome;
 	@Column(unique=true)//Anotação para definir que E-mail é unico
 	private String email;
-	private String cpf;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_nasc;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_cad;
-	private char Sexo;
+	private char sexo;
+	private String senha;
 	//Definindo que telefones é uma entidade fraca
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	//Coleção de Strings associadas a pessoa(SET)
 	private Set<String> telefones = new HashSet<>();
 	
-	@OneToMany(mappedBy = "pessoa", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar a pessoa do banco deve ser apagado os endereços dele também
+	@OneToMany(mappedBy = "usuario", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar a pessoa do banco deve ser apagado os endereços dele também
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	
-	public Pessoa() {
+	public Usuario() {
 	}
 
-	public Pessoa(Integer id, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo) {
+	public Usuario(Integer id, String nome, String email, Date data_nasc, Date data_cad, char sexo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpf = cpf;
 		this.data_nasc = data_nasc;
 		this.data_cad = data_cad;
-		Sexo = sexo;
+		this.sexo = sexo;
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -85,14 +85,6 @@ public abstract class Pessoa implements Serializable{
 		this.email = email;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public Date getData_nasc() {
 		return data_nasc;
 	}
@@ -110,11 +102,19 @@ public abstract class Pessoa implements Serializable{
 	}
 
 	public char getSexo() {
-		return Sexo;
+		return sexo;
 	}
 
 	public void setSexo(char sexo) {
-		Sexo = sexo;
+		this.sexo = sexo;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 	public Set<String> getTelefones() {
@@ -132,6 +132,8 @@ public abstract class Pessoa implements Serializable{
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -149,7 +151,7 @@ public abstract class Pessoa implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pessoa other = (Pessoa) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

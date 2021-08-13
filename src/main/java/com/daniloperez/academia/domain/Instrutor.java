@@ -12,10 +12,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class Instrutor extends Pessoa{
+public class Instrutor extends Usuario{
 	private static final long serialVersionUID = 1L;
 	private String numCrf;
-	
+	private String cpf;
 	@JsonIgnore
 	@ManyToMany(mappedBy="instrutores")
 	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
@@ -26,9 +26,10 @@ public class Instrutor extends Pessoa{
 	public Instrutor() {
 	}
 	
-	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf) {
-		super(id, nome, email, cpf, data_nasc, data_cad, sexo);
-		this.setNumCrf(numCrf);
+	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf, String senha) {
+		super(id, nome, email, data_nasc, data_cad, sexo, senha);
+		this.numCrf = numCrf;
+		this.cpf = cpf;
 	}
 
 	public String getNumCrf() {
@@ -47,8 +48,6 @@ public class Instrutor extends Pessoa{
 		this.avaliacoes = avaliacoes;
 	}
 	
-	
-	
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		return estabelecimentos;
@@ -56,5 +55,13 @@ public class Instrutor extends Pessoa{
 
 	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
 		this.estabelecimentos = estabelecimentos;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }

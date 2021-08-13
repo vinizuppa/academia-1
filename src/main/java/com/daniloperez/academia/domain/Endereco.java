@@ -26,8 +26,8 @@ public class Endereco implements Serializable{
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="pessoa_id")
-	private Pessoa pessoa;
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
 	
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
@@ -37,7 +37,7 @@ public class Endereco implements Serializable{
 	}
 
 	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
-			Pessoa pessoa, Cidade cidade) {
+			Usuario usuario, Cidade cidade) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -45,7 +45,7 @@ public class Endereco implements Serializable{
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
-		this.pessoa = pessoa;
+		this.usuario = usuario;
 		this.setCidade(cidade);
 	}
 
@@ -96,13 +96,14 @@ public class Endereco implements Serializable{
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
+	
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Cidade getCidade() {

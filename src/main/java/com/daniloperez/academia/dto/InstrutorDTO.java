@@ -23,6 +23,9 @@ public class InstrutorDTO implements Serializable{
 	private String email;
 	
 	@NotEmpty(message="Preenchimento obrigatório")
+	private String senha;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numCrf;
 	
 	private char sexo;
@@ -37,6 +40,7 @@ public class InstrutorDTO implements Serializable{
 		email = obj.getEmail();
 		numCrf = obj.getNumCrf();
 		sexo = obj.getSexo();
+		senha = obj.getSenha();
 	}
 
 	public Integer getId() {
@@ -77,6 +81,14 @@ public class InstrutorDTO implements Serializable{
 
 	public void setNumCrf(String numCrf) {
 		this.numCrf = numCrf;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 	
