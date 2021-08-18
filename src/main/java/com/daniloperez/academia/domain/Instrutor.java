@@ -23,6 +23,11 @@ public class Instrutor extends Usuario{
 	@JsonIgnore
 	@OneToMany(mappedBy = "instrutor", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar o instrutor do banco deve ser apagado as avaliações dele também
 	private List<AvaliacaoAluno> avaliacoes = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "instrutor")
+	private List<ScriptTreino> scripts = new ArrayList<>();
+	
 	public Instrutor() {
 	}
 	
@@ -47,7 +52,14 @@ public class Instrutor extends Usuario{
 	public void setAvaliacoes(List<AvaliacaoAluno> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
-	
+
+	public List<ScriptTreino> getScripts() {
+		return scripts;
+	}
+
+	public void setScripts(List<ScriptTreino> scripts) {
+		this.scripts = scripts;
+	}
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		return estabelecimentos;

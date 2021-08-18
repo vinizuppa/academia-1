@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.daniloperez.academia.domain.Aluno;
+import com.daniloperez.academia.domain.Atividade;
 import com.daniloperez.academia.domain.Categoria;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
@@ -17,6 +18,7 @@ import com.daniloperez.academia.domain.Estado;
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.enums.BioTipo;
 import com.daniloperez.academia.repositories.AlunoRepository;
+import com.daniloperez.academia.repositories.AtividadeRepository;
 import com.daniloperez.academia.repositories.CategoriaRepository;
 import com.daniloperez.academia.repositories.CidadeRepository;
 import com.daniloperez.academia.repositories.EnderecoRepository;
@@ -41,6 +43,7 @@ public class AcademiaApplication implements CommandLineRunner{
 	@Autowired
 	private EstabelecimentoRepository estabelecimentoRepository;
 
+	@Autowired AtividadeRepository atividadeRepository;
 	
 	
 	public static void main(String[] args) {
@@ -163,5 +166,11 @@ public class AcademiaApplication implements CommandLineRunner{
 		// Salvando Endereços dos Estabelecimentos no banco
 		enderecoRepository.saveAll(Arrays.asList(endEstab1, endEstab2, endEstab3));
 		
+		//Instanciando 3 Atividades no banco.
+		Atividade atv1 = new Atividade(null, "Cerrote", "Atividade para melhorar Tricps");
+		Atividade atv2 = new Atividade(null, "Rosca Aberta", "Atividade para melhorar Biceps");
+		Atividade atv3 = new Atividade(null, "Agachamento", "Atividade para melhorar pernas e bumbum");
+		//Salvando atividades no banco
+		atividadeRepository.saveAll(Arrays.asList(atv1, atv2, atv3));
 	}
 }
