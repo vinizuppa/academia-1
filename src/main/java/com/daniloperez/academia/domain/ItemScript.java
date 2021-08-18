@@ -18,30 +18,36 @@ public class ItemScript implements Serializable{
 	
 	private Integer qtd_rep;
 	private Integer qtd_series;
-	private DiaSemana diaSemana;
+	private DiaSemana diasemana;
 	
 	public ItemScript() {
 		
 	}
 
-	public ItemScript(ScriptTreino script, Atividade atividade, Integer qtd_rep, Integer qtd_series, DiaSemana diaSemana) {
+	public ItemScript(ScriptTreino script, Atividade atividade, Integer qtd_rep, Integer qtd_series, DiaSemana diasemana) {
 		super();
 		id.setScriptTreino(script);//Atribuindo ScriptTreino dentro do ID
 		id.setAtividade(atividade);;//Atribuindo Atividade dentro do ID
 		this.qtd_rep = qtd_rep;
 		this.qtd_series = qtd_series;
-		this.diaSemana = (diaSemana==null) ? null : diaSemana;
+		this.diasemana = (diasemana==null) ? null : diasemana;
 	}
 
 	@JsonIgnore
 	public ScriptTreino getScript() {
 		return id.getScriptTreino();
 	}
+	public void setScript(ScriptTreino script) {
+		id.setScriptTreino(script);
+	}
 	
 	public Atividade getAtividade() {
 		return id.getAtividade();
 	}
 	
+	public void setAtividade(Atividade atividade) {
+		id.setAtividade(atividade);
+	}
 	
 	public ItemScriptPK getId() {
 		return id;
@@ -67,12 +73,12 @@ public class ItemScript implements Serializable{
 		this.qtd_series = qtd_series;
 	}
 
-	public DiaSemana getDiaSemana() {
-		return diaSemana;
+	public DiaSemana getDiasemana() {
+		return diasemana;
 	}
 
-	public void setDiaSemana(DiaSemana diaSemana) {
-		this.diaSemana = diaSemana;
+	public void setDiaSemana(DiaSemana diasemana) {
+		this.diasemana = diasemana;
 	}
 
 	@Override
