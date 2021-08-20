@@ -12,10 +12,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class Instrutor extends Pessoa{
+public class Instrutor extends Usuario{
 	private static final long serialVersionUID = 1L;
 	private String numCrf;
-	
+	private String cpf;
 	@JsonIgnore
 	@ManyToMany(mappedBy="instrutores")
 	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
@@ -23,12 +23,18 @@ public class Instrutor extends Pessoa{
 	@JsonIgnore
 	@OneToMany(mappedBy = "instrutor", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar o instrutor do banco deve ser apagado as avaliações dele também
 	private List<AvaliacaoAluno> avaliacoes = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "instrutor")
+	private List<ScriptTreino> scripts = new ArrayList<>();
+	
 	public Instrutor() {
 	}
 	
-	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf) {
-		super(id, nome, email, cpf, data_nasc, data_cad, sexo);
-		this.setNumCrf(numCrf);
+	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf, String senha) {
+		super(id, nome, email, data_nasc, data_cad, sexo, senha);
+		this.numCrf = numCrf;
+		this.cpf = cpf;
 	}
 
 	public String getNumCrf() {
@@ -46,9 +52,14 @@ public class Instrutor extends Pessoa{
 	public void setAvaliacoes(List<AvaliacaoAluno> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
-	
-	
-	
+
+	public List<ScriptTreino> getScripts() {
+		return scripts;
+	}
+
+	public void setScripts(List<ScriptTreino> scripts) {
+		this.scripts = scripts;
+	}
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		return estabelecimentos;
@@ -56,5 +67,13 @@ public class Instrutor extends Pessoa{
 
 	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
 		this.estabelecimentos = estabelecimentos;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }

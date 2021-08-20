@@ -43,6 +43,9 @@ public class AlunoNewDTO implements Serializable{
 	
 	private char sexo;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
+	private String senha;
+	
 	@Positive(message="Peso incorreto! Insira valor maior que 0")
 	private double peso;
 	
@@ -155,6 +158,14 @@ public class AlunoNewDTO implements Serializable{
 	public void setImc(double imc) {
 		this.imc = imc;
 	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	public String getLogradouro() {
 		return logradouro;
@@ -219,6 +230,7 @@ public class AlunoNewDTO implements Serializable{
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
 	}
+
 	
 	
 }

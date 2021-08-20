@@ -51,7 +51,7 @@ public class InstrutorService {
 	
 	//Incluir Instrutor por DTO
 	public Instrutor fromDTO(InstrutorNewDTO objDto) {
-		Instrutor ins = new Instrutor(null,objDto.getNome(), objDto.getEmail(), objDto.getCpf(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), objDto.getNumCrf());
+		Instrutor ins = new Instrutor(null,objDto.getNome(), objDto.getEmail(), objDto.getCpf(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), objDto.getNumCrf(), objDto.getSenha());
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), ins, cid);
 		ins.getEnderecos().add(end);
@@ -87,10 +87,11 @@ public class InstrutorService {
 			newObj.setEmail(obj.getEmail());
 			newObj.setSexo(obj.getSexo());
 			newObj.setNumCrf(obj.getNumCrf());
+			newObj.setSenha(obj.getSenha());
 		}
 		
 		public Instrutor fromDTO(InstrutorDTO objDto) {
-			 Instrutor inst = new Instrutor(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getNumCrf());
+			 Instrutor inst = new Instrutor(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getNumCrf(), objDto.getSenha());
 			 return inst;
 		}
 }
