@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import com.daniloperez.academia.domain.enums.DiaSemana;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,6 +20,7 @@ public class ItemScript implements Serializable{
 	
 	private Integer qtd_rep;
 	private Integer qtd_series;
+	@Enumerated(EnumType.STRING)
 	private DiaSemana diasemana;
 	
 	public ItemScript() {

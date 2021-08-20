@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+
 import com.daniloperez.academia.domain.ScriptTreino;
+import com.daniloperez.academia.dto.ScriptTreinoNewDTO;
 import com.daniloperez.academia.services.ScriptTreinoService;
 
 @RestController
@@ -38,5 +40,22 @@ public class ScriptTreinoResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//Chamada que pega a URI do novo recurso que foi add no banco
 		return ResponseEntity.created(uri).build();
+	}
+	
+	//Configurando o metodo DELETE para ScriptTreino
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	//Configurando para o ID da URL passar para a váriavel Id
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}	
+	
+	//Configurando o metodo PUT para ScriptTreino
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody ScriptTreinoNewDTO objDto, @PathVariable Integer id){
+		ScriptTreino obj = service.fromDTO(objDto);
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 }

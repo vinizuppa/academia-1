@@ -3,9 +3,9 @@ package com.daniloperez.academia.domain.enums;
 
 //Implementação enumerada, para ter controle total de código atribuido a cada valor da enumeração
 public enum BioTipo {
-	ECTOMORFO(1, "Ectomorfo"),
-	MESOMORFO(2, "Mesomorfo"),
-	ENDOMORFO(3, "Endomorfo");
+	ECTOMORFO(0, "Ectomorfo"),
+	MESOMORFO(1, "Mesomorfo"),
+	ENDOMORFO(2, "Endomorfo");
 	
 	private int cod;
 	private String descricao;

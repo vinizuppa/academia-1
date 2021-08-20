@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -41,7 +42,7 @@ public class ScriptTreino implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Ativo ativo;
 	
-	@OneToMany(mappedBy = "id.scriptTreino")//Por ter uma classe auxiliar para criar a chave composta do ScriptTreino(que é a ScriptTreinoPK), é necessário usar esse id.script
+	@OneToMany(mappedBy = "id.scriptTreino",  cascade=CascadeType.ALL)//Por ter uma classe auxiliar para criar a chave composta do ScriptTreino(que é a ScriptTreinoPK), é necessário usar esse id.script
 	private Set<ItemScript> itens = new HashSet<>();
 	
 	public ScriptTreino() {
