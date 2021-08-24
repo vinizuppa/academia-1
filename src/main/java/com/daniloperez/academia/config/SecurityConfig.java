@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,6 +26,7 @@ import com.daniloperez.academia.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)//Anotação para pode configurar para autorizar somente alguns perfis determinado end-point
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private Environment env;
@@ -40,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {//Definindo quais caminhos serão liberados somente para GET.
-			"/categorias/**",
+			"/categorias/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_POST = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
 			"/alunos/**",
 			"/instrutores/**",
 			"/estabelecimentos/**"
@@ -54,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
+		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_POST).permitAll()// Definindo que somente POST que estiverem em PUBLIC_MATCHERS_POST serão permitidos.
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
 		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated(); // Definindo que todos caminhos que estiverem em PUBLIC_MATCHERS serão permitidos.

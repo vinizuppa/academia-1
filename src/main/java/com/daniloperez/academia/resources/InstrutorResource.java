@@ -8,12 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.dto.InstrutorDTO;
 import com.daniloperez.academia.dto.InstrutorNewDTO;
@@ -37,6 +39,7 @@ public class InstrutorResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	//Configurando para listar todos Instrutores
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<InstrutorDTO>> findAll() {
@@ -55,6 +58,7 @@ public class InstrutorResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	//Configurando o metodo DELETE para Instrutor
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	//Configurando para o ID da URL passar para a váriavel Id

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public class AlunoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	//Configurando para listar todos Alunos
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<AlunoDTO>> findAll() {
@@ -55,6 +57,7 @@ public class AlunoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	//Configurando o metodo DELETE para aluno
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	//Configurando para o ID da URL passar para a váriavel Id
