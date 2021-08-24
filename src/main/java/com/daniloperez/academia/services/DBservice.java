@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.daniloperez.academia.domain.Aluno;
@@ -44,6 +45,9 @@ public class DBservice {
 	@Autowired
 	AtividadeRepository atividadeRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 	 public void instanciateTestDatabase() throws ParseException {
 		//Instanciando 2 estados
 				Estado est1 = new Estado(null, "Minas Gerais");
@@ -66,7 +70,7 @@ public class DBservice {
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");//Mascara de formatação para instanciar data
 				//Instanciando 1 Aluno
-				Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "vcordeiro12@gmail.com", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100, "senhateste");
+				Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "vcordeiro12@gmail.com", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100, pe.encode("senhateste"));
 				al1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));//Instanciando 2 Telefones)
 				
 				//Instanciando 2 endereços
@@ -91,13 +95,13 @@ public class DBservice {
 				categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 				
 				//Instanciando 3 Instrutores
-				Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588", "senha123");
+				Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588", pe.encode("senha123"));
 				is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));
 						
-				Instrutor is2 = new Instrutor(null, "João da Silva", "joão@hotmail.com" , "52768915084", sdf.parse("08/09/1984"), sdf.parse("05/08/2021"), 'F', "88544", "senha123");
+				Instrutor is2 = new Instrutor(null, "João da Silva", "joão@hotmail.com" , "52768915084", sdf.parse("08/09/1984"), sdf.parse("05/08/2021"), 'F', "88544", pe.encode("senha123"));
 				is2.getTelefones().addAll(Arrays.asList("998154625", "998651520"));
 						
-				Instrutor is3 = new Instrutor(null, "Pedro Santos", "pedro@hotmail.com" , "69278608009", sdf.parse("26/12/1991"), sdf.parse("05/08/2021"), 'M', "54488", "senha123");
+				Instrutor is3 = new Instrutor(null, "Pedro Santos", "pedro@hotmail.com" , "69278608009", sdf.parse("26/12/1991"), sdf.parse("05/08/2021"), 'M', "54488", pe.encode("senha123"));
 				is3.getTelefones().addAll(Arrays.asList("995153526", "995451585"));
 						
 				//Instanciando Endereço

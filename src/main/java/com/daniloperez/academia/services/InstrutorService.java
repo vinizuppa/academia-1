@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,9 @@ public class InstrutorService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	//Buscar Instrutor por ID
 	public Instrutor find(Integer id) {
@@ -51,7 +55,7 @@ public class InstrutorService {
 	
 	//Incluir Instrutor por DTO
 	public Instrutor fromDTO(InstrutorNewDTO objDto) {
-		Instrutor ins = new Instrutor(null,objDto.getNome(), objDto.getEmail(), objDto.getCpf(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), objDto.getNumCrf(), objDto.getSenha());
+		Instrutor ins = new Instrutor(null,objDto.getNome(), objDto.getEmail(), objDto.getCpf(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), objDto.getNumCrf(), pe.encode(objDto.getSenha()));
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), ins, cid);
 		ins.getEnderecos().add(end);
@@ -91,7 +95,7 @@ public class InstrutorService {
 		}
 		
 		public Instrutor fromDTO(InstrutorDTO objDto) {
-			 Instrutor inst = new Instrutor(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getNumCrf(), objDto.getSenha());
+			 Instrutor inst = new Instrutor(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getNumCrf(), null);
 			 return inst;
 		}
 }

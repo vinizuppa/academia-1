@@ -20,6 +20,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)//Anotação para definir que essa é a superclasse
@@ -36,6 +37,7 @@ public abstract class Usuario implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_cad;
 	private char sexo;
+	@JsonIgnore
 	private String senha;
 	//Definindo que telefones é uma entidade fraca
 	@ElementCollection
