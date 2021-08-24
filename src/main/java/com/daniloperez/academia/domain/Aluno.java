@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 import com.daniloperez.academia.domain.enums.BioTipo;
+import com.daniloperez.academia.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -33,6 +34,7 @@ public class Aluno extends Usuario{
 	private List<ScriptTreino> scripts = new ArrayList<>();
 	
 	public Aluno() {
+		addPerfil(Perfil.ALUNO);
 	}
 
 	public Aluno(Integer id,BioTipo biotipo, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc, String senha) {

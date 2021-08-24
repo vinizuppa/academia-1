@@ -29,7 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {//Definindo quais caminhos serão liberados somente para GET.
 			"/atividades/**",
-			"/categorias/**"
+			"/categorias/**",
+			"/alunos/**",
+			"/instrutores/**",
+			"/estabelecimentos/**"
 	};
 	
 	@Override

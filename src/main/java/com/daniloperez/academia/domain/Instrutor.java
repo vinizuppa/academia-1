@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.daniloperez.academia.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -29,6 +30,7 @@ public class Instrutor extends Usuario{
 	private List<ScriptTreino> scripts = new ArrayList<>();
 	
 	public Instrutor() {
+		addPerfil(Perfil.INSTRUTOR);
 	}
 	
 	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf, String senha) {

@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import com.daniloperez.academia.domain.enums.Perfil;
 @Entity
 public class Estabelecimento extends Usuario {
 	
@@ -39,7 +41,7 @@ public class Estabelecimento extends Usuario {
 	private List<Instrutor> instrutores = new ArrayList<>();
 	
 	public Estabelecimento() {
-		
+		addPerfil(Perfil.ESTABELECIMENTO);
 	}
 
 	public Estabelecimento(Integer id, String nome, String email, String razao_social, String cnpj, Date data_nasc,

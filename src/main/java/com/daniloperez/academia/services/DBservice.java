@@ -17,6 +17,7 @@ import com.daniloperez.academia.domain.Estabelecimento;
 import com.daniloperez.academia.domain.Estado;
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.enums.BioTipo;
+import com.daniloperez.academia.domain.enums.Perfil;
 import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.AtividadeRepository;
 import com.daniloperez.academia.repositories.CategoriaRepository;
@@ -72,6 +73,7 @@ public class DBservice {
 				//Instanciando 1 Aluno
 				Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "vcordeiro12@gmail.com", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100, pe.encode("senhateste"));
 				al1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));//Instanciando 2 Telefones)
+				al1.addPerfil(Perfil.ALUNO);
 				
 				//Instanciando 2 endereços
 				Endereco e1 = new Endereco (null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", al1, c1);
@@ -97,13 +99,16 @@ public class DBservice {
 				//Instanciando 3 Instrutores
 				Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588", pe.encode("senha123"));
 				is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));
+				is1.addPerfil(Perfil.INSTRUTOR);
 						
 				Instrutor is2 = new Instrutor(null, "João da Silva", "joão@hotmail.com" , "52768915084", sdf.parse("08/09/1984"), sdf.parse("05/08/2021"), 'F', "88544", pe.encode("senha123"));
 				is2.getTelefones().addAll(Arrays.asList("998154625", "998651520"));
-						
+				is2.addPerfil(Perfil.INSTRUTOR);	
+				
 				Instrutor is3 = new Instrutor(null, "Pedro Santos", "pedro@hotmail.com" , "69278608009", sdf.parse("26/12/1991"), sdf.parse("05/08/2021"), 'M', "54488", pe.encode("senha123"));
 				is3.getTelefones().addAll(Arrays.asList("995153526", "995451585"));
-						
+				is3.addPerfil(Perfil.INSTRUTOR);	
+				
 				//Instanciando Endereço
 				Endereco e3 = new Endereco (null, "Rua Boituva", "128", "Próximo Rodoviária", "Vila Operária", "38220834", is1, c2);
 				Endereco e4 = new Endereco (null, "Rua Juquiá", "560", "Ao lado da caixa d'água da Vila Olinda", "Vila Olinda", "18950250", is2, c1);
@@ -120,12 +125,15 @@ public class DBservice {
 				// Instancianto 3 Estabelecimentos
 				Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "asv@hotmail.com", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"), 'N', "senha123");
 				estab1.getTelefones().addAll(Arrays.asList("14665239520", "18569253462"));
+				estab1.addPerfil(Perfil.ESTABELECIMENTO);
 				
 				Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "tste@teste.com", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"), 'N',"senha123");
 				estab2.getTelefones().addAll(Arrays.asList("14995642031", "14997652380"));
+				estab2.addPerfil(Perfil.ESTABELECIMENTO);
 				
 				Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "teste@hotmail.com", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"), 'N',"senha123");
 				estab3.getTelefones().addAll(Arrays.asList("11884625310", "2155926644"));
+				estab3.addPerfil(Perfil.ESTABELECIMENTO);
 				
 				// Instanciando 3 Endereços de Estabelecimentos
 				Endereco endEstab1 = new Endereco (null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", estab1, c3);

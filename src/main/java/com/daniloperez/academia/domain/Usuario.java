@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.daniloperez.academia.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,6 +47,10 @@ public abstract class Usuario implements Serializable{
 	@CollectionTable(name="TELEFONE")
 	//Coleção de Strings associadas a pessoa(SET)
 	private Set<String> telefones = new HashSet<>();
+	
+	@ElementCollection(fetch=FetchType.EAGER)//Ao buscar usuário no banco de dados, automaticamente serão buscados os perfis também.
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
 	
 	@OneToMany(mappedBy = "usuario", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar a pessoa do banco deve ser apagado os endereços dele também
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -117,6 +124,14 @@ public abstract class Usuario implements Serializable{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
 	}
 	
 	public Set<String> getTelefones() {
