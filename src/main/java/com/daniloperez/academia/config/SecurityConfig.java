@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.daniloperez.academia.security.JWTAuthenticationFilter;
+import com.daniloperez.academia.security.JWTAuthorizationFilter;
 import com.daniloperez.academia.security.JWTUtil;
 
 
@@ -39,7 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {//Definindo quais caminhos serão liberados somente para GET.
-			"/atividades/**",
 			"/categorias/**",
 			"/alunos/**",
 			"/instrutores/**",
@@ -57,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
 		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated(); // Definindo que todos caminhos que estiverem em PUBLIC_MATCHERS serão permitidos.
-		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));//Filtro de autenticação
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));//Filtro de autorização
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//Definindo para BackEnd não criar sessões de usuário.
 	}
 	
