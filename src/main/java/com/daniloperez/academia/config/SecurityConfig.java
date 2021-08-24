@@ -1,0 +1,54 @@
+package com.daniloperez.academia.config;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	@Autowired
+	private Environment env;
+	
+	private static final String[] PUBLIC_MATCHERS = {//Vetor, para definir quais caminhos por padrão serão liberados de autenticação.
+			"/h2-console/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_GET = {//Definindo quais caminhos serão liberados somente para GET.
+			"/atividades/**",
+			"/categorias/**"
+	};
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception{
+		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {//Liberando acesso para profile "test", para o banco h2 conseguir funcionar.
+			http.headers().frameOptions().disable();
+		}
+		
+		http.cors().and().csrf().disable();
+		http.authorizeRequests()
+		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
+		.antMatchers(PUBLIC_MATCHERS).permitAll()
+		.anyRequest().authenticated(); // Definindo que todos caminhos que estiverem em PUBLIC_MATCHERS serão permitidos.
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//Definindo para BackEnd não criar sessões de usuário.
+	}
+	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {//Permitindo acesso aos end-points por multiplas fontes, com configurações básicas.
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		return source;
+	}
+}
