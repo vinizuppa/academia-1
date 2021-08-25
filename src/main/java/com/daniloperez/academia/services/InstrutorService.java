@@ -13,10 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
 import com.daniloperez.academia.domain.Instrutor;
+import com.daniloperez.academia.domain.enums.Perfil;
 import com.daniloperez.academia.dto.InstrutorDTO;
 import com.daniloperez.academia.dto.InstrutorNewDTO;
 import com.daniloperez.academia.repositories.EnderecoRepository;
 import com.daniloperez.academia.repositories.InstrutorRepository;
+import com.daniloperez.academia.security.UserSS;
+import com.daniloperez.academia.services.exceptions.AuthorizationException;
 import com.daniloperez.academia.services.exceptions.DataIntegrityException;
 import com.daniloperez.academia.services.exceptions.ObjectNotFoundException;
 
@@ -34,6 +37,11 @@ public class InstrutorService {
 	
 	//Buscar Instrutor por ID
 	public Instrutor find(Integer id) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Instrutor> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Instrutor não encontrado! Id: " + id + ", Tipo: " + Instrutor.class.getName()));
 	}

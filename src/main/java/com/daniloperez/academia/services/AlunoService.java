@@ -13,10 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
+import com.daniloperez.academia.domain.enums.Perfil;
 import com.daniloperez.academia.dto.AlunoDTO;
 import com.daniloperez.academia.dto.AlunoNewDTO;
 import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.EnderecoRepository;
+import com.daniloperez.academia.security.UserSS;
+import com.daniloperez.academia.services.exceptions.AuthorizationException;
 import com.daniloperez.academia.services.exceptions.DataIntegrityException;
 import com.daniloperez.academia.services.exceptions.ObjectNotFoundException;
 
@@ -34,6 +37,11 @@ public class AlunoService {
 	
 	//Buscar Aluno por ID
 	public Aluno find(Integer id) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Aluno> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Aluno não encontrado! Id: " + id + ", Tipo: " + Aluno.class.getName()));
 	}
