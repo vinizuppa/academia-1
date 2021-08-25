@@ -100,6 +100,7 @@ public class DBservice {
 				Instrutor is1 = new Instrutor(null, "Douglas Costa", "jaz@hotmail.com" , "11074798864", sdf.parse("15/05/2002"), sdf.parse("05/08/2021"), 'M', "44588", pe.encode("senha123"));
 				is1.getTelefones().addAll(Arrays.asList("996922381", "996011503"));
 				is1.addPerfil(Perfil.INSTRUTOR);
+				is1.addPerfil(Perfil.ADMIN);
 						
 				Instrutor is2 = new Instrutor(null, "João da Silva", "joão@hotmail.com" , "52768915084", sdf.parse("08/09/1984"), sdf.parse("05/08/2021"), 'F', "88544", pe.encode("senha123"));
 				is2.getTelefones().addAll(Arrays.asList("998154625", "998651520"));

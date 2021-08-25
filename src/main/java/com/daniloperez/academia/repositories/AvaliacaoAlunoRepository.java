@@ -9,5 +9,4 @@ import com.daniloperez.academia.domain.AvaliacaoAluno;
 //Aqui iremos realizar acesso a dados. Pode ser: Buscar, salvar, deletar,
 @Repository
 public interface AvaliacaoAlunoRepository extends JpaRepository<AvaliacaoAluno, Integer>{
-
 }

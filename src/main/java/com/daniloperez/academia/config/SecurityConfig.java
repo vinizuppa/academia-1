@@ -42,7 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {//Definindo quais caminhos serão liberados somente para GET.
-			"/categorias/**"
+			"/categorias/**",
+			"/atividades/**",
+			"/estabelecimentos/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
@@ -59,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_POST).permitAll()// Definindo que somente POST que estiverem em PUBLIC_MATCHERS_POST serão permitidos.
+		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()// Definindo que somente POST que estiverem em PUBLIC_MATCHERS_POST serão permitidos.
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
 		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated(); // Definindo que todos caminhos que estiverem em PUBLIC_MATCHERS serão permitidos.
