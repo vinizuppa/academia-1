@@ -49,9 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
 			"/alunos/",
-			"/alunos/picture",
 			"/instrutores/",
-			"/instrutores/picture",
 			"/estabelecimentos/**",
 			"/auth/forgot/**"
 	};
