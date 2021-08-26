@@ -48,6 +48,9 @@ public class AlunoService {
 	@Value("${img.prefix.aluno.profile}")
 	private String prefix;
 	
+	@Value("${img.profile.size}")
+	private Integer size;
+	
 	//Buscar Aluno por ID
 	public Aluno find(Integer id) {
 		UserSS user = UserService.authenticated();
@@ -132,6 +135,8 @@ public class AlunoService {
 		}
 		
 		BufferedImage jpgImage = imageService.getJpgImageFromFile(multiPartFile);
+		jpgImage = imageService.cropSquare(jpgImage);
+		jpgImage = imageService.resize(jpgImage, size);
 		String fileName = prefix + user.getId() + ".jpg";	
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}

@@ -48,6 +48,9 @@ public class InstrutorService {
 	@Value("${img.prefix.instrutor.profile}")
 	private String prefix;
 	
+	@Value("${img.profile.size}")
+	private Integer size;
+	
 	//Buscar Instrutor por ID
 	public Instrutor find(Integer id) {
 		UserSS user = UserService.authenticated();
@@ -127,6 +130,8 @@ public class InstrutorService {
 			}
 			
 			BufferedImage jpgImage = imageService.getJpgImageFromFile(multiPartFile);
+			jpgImage = imageService.cropSquare(jpgImage);
+			jpgImage = imageService.resize(jpgImage, size);
 			String fileName = prefix + user.getId() + ".jpg";	
 			return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 		}
