@@ -1,5 +1,6 @@
 package com.daniloperez.academia.services;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.Cidade;
@@ -34,6 +36,9 @@ public class AlunoService {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	//Buscar Aluno por ID
 	public Aluno find(Integer id) {
@@ -110,5 +115,9 @@ public class AlunoService {
 	public Aluno fromDTO(AlunoDTO objDto) {
 		 Aluno al1 = new Aluno(objDto.getId(), objDto.getBiotipo(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getPeso(), objDto.getAltura(), objDto.getImc(), null);
 		 return al1;
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multiPartFile) {//Função para enviar imagem do aluno para o S3
+		return s3Service.uploadFile(multiPartFile);
 	}
 }

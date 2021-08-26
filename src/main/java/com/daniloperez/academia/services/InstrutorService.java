@@ -1,5 +1,6 @@
 package com.daniloperez.academia.services;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.daniloperez.academia.domain.Cidade;
 import com.daniloperez.academia.domain.Endereco;
@@ -34,6 +36,9 @@ public class InstrutorService {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	//Buscar Instrutor por ID
 	public Instrutor find(Integer id) {
@@ -105,5 +110,9 @@ public class InstrutorService {
 		public Instrutor fromDTO(InstrutorDTO objDto) {
 			 Instrutor inst = new Instrutor(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null, objDto.getSexo(), objDto.getNumCrf(), null);
 			 return inst;
+		}
+		
+		public URI uploadProfilePicture(MultipartFile multiPartFile) {//Função para enviar imagem do aluno para o S3
+			return s3Service.uploadFile(multiPartFile);
 		}
 }
