@@ -40,6 +40,13 @@ public class AlunoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	//Busca de Aluno por Email
+	@RequestMapping(value="/email", method=RequestMethod.GET)
+	public ResponseEntity<Aluno> find(@RequestParam(value="value") String email) {
+		Aluno obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	//Configurando para listar todos Alunos
 	@RequestMapping(method=RequestMethod.GET)

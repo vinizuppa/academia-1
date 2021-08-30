@@ -41,6 +41,13 @@ public class InstrutorResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	//Busca de Instrutor por Email
+	@RequestMapping(value="/email", method=RequestMethod.GET)
+	public ResponseEntity<Instrutor> find(@RequestParam(value="value") String email) {
+		Instrutor obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	//Configurando para listar todos Instrutores
 	@RequestMapping(method=RequestMethod.GET)

@@ -67,6 +67,20 @@ public class AlunoService {
 		return repo.findAll();
 	}
 	
+	//Buscar Aluno por Email
+	public Aluno findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		Aluno obj = repo.findByEmail(email);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Aluno.class.getName());
+		}
+		return obj;
+	}
+	
 	//Incluir aluno
 	@Transactional
 	public Aluno insert(Aluno obj) {
@@ -128,7 +142,8 @@ public class AlunoService {
 		 return al1;
 	}
 	
-	public URI uploadProfilePicture(MultipartFile multiPartFile) {//Função para enviar imagem do aluno para o S3
+	//Função para enviar imagem do aluno para o S3
+	public URI uploadProfilePicture(MultipartFile multiPartFile) {
 		UserSS user = UserService.authenticated();
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
@@ -140,4 +155,5 @@ public class AlunoService {
 		String fileName = prefix + user.getId() + ".jpg";	
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
+
 }

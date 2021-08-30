@@ -62,9 +62,23 @@ public class InstrutorService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Instrutor não encontrado! Id: " + id + ", Tipo: " + Instrutor.class.getName()));
 	}
 	
-	//Buscar todos Alunos
+	//Buscar todos Instrutores
 	public List<Instrutor> findAll(){
 		return repo.findAll();
+	}
+	
+	//Buscar Instrutor por Email
+	public Instrutor findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+			
+		Instrutor obj = repo.findByEmail(email);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Instrutor.class.getName());
+		}
+		return obj;
 	}
 	
 	//Incluir aluno
