@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String[] PUBLIC_MATCHERS_GET = {//Definindo quais caminhos serão liberados somente para GET.
 			"/categorias/**",
 			"/atividades/**",
-			"/estabelecimentos/**"
+			"/estabelecimentos/**",
+			"/estados/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
