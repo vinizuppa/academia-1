@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.daniloperez.academia.domain.Usuario;
 import com.daniloperez.academia.domain.enums.Perfil;
+import com.daniloperez.academia.dto.PerfilDTO;
 import com.daniloperez.academia.repositories.UsuarioRepository;
 import com.daniloperez.academia.security.UserSS;
 import com.daniloperez.academia.services.exceptions.AuthorizationException;
@@ -26,7 +27,7 @@ public class UserService {
 	}
 	
 	//Buscar Usuario por Email
-	public Usuario findByEmail(String email) {
+	public PerfilDTO findByEmail(String email) {
 		UserSS user = UserService.authenticated();
 		if(user==null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
 			throw new AuthorizationException("Acesso negado");
@@ -36,6 +37,8 @@ public class UserService {
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Usuario.class.getName());
 		}
-		return (Usuario) obj.getPerfis();
+		PerfilDTO perfilDTO = new PerfilDTO();
+		perfilDTO.setPerfis(obj.getPerfis());
+		return perfilDTO;
 	}
 }

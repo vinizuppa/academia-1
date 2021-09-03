@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.daniloperez.academia.domain.Usuario;
+import com.daniloperez.academia.dto.PerfilDTO;
 import com.daniloperez.academia.services.UserService;
 
 @RestController
@@ -18,8 +17,9 @@ public class UserResource {
 	
 	//Busca de usuario por Email
 	@RequestMapping(value="/email", method=RequestMethod.GET)
-	public ResponseEntity<Usuario> find(@RequestParam(value="value") String email) {
-		Usuario obj = service.findByEmail(email);
+	public ResponseEntity<?> find(@RequestParam(value="value") String email) {
+		PerfilDTO obj = service.findByEmail(email);
+		
 		return ResponseEntity.ok().body(obj);
 	}
 }
