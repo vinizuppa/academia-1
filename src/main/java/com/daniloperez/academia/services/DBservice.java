@@ -174,7 +174,7 @@ public class DBservice {
 				
 				//Instanciando 3 Atividades no banco.
 				Atividade atv1 = new Atividade(null, "Cerrote", "Atividade para melhorar Tricps");
-				Atividade atv2 = new Atividade(null, "Rosca Aberta", "Atividade para melhorar Biceps");
+				Atividade atv2 = new Atividade(null, "Rosca Direta", "Atividade para melhorar Biceps");
 				Atividade atv3 = new Atividade(null, "Agachamento", "Atividade para melhorar pernas e bumbum");
 				//Salvando atividades no banco
 				atividadeRepository.saveAll(Arrays.asList(atv1, atv2, atv3));

@@ -30,13 +30,14 @@ public class Instrutor extends Usuario{
 	private List<ScriptTreino> scripts = new ArrayList<>();
 	
 	public Instrutor() {
-		addPerfil(Perfil.INSTRUTOR);
+		
 	}
 	
 	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf, String senha) {
 		super(id, nome, email, data_nasc, data_cad, sexo, senha);
 		this.numCrf = numCrf;
 		this.cpf = cpf;
+		addPerfil(Perfil.INSTRUTOR);
 	}
 
 	public String getNumCrf() {

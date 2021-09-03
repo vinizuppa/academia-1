@@ -34,7 +34,7 @@ public class Aluno extends Usuario{
 	private List<ScriptTreino> scripts = new ArrayList<>();
 	
 	public Aluno() {
-		addPerfil(Perfil.ALUNO);
+		
 	}
 
 	public Aluno(Integer id,BioTipo biotipo, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc, String senha) {
@@ -44,6 +44,7 @@ public class Aluno extends Usuario{
 		this.altura = altura;
 		this.imc = imc;
 		this.cpf = cpf;
+		addPerfil(Perfil.ALUNO);
 	}
 
 	public double getPeso() {

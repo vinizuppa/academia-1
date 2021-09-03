@@ -45,7 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/categorias/**",
 			"/atividades/**",
 			"/estabelecimentos/**",
-			"/estados/**"
+			"/estados/**",
+			"/usuarios/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
@@ -53,6 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/instrutores/",
 			"/estabelecimentos/**",
 			"/auth/forgot/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_PUT = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
+			"/alunos/**"
 	};
 	
 	@Override
@@ -65,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()// Definindo que somente POST que estiverem em PUBLIC_MATCHERS_POST serão permitidos.
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
+		.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
 		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated(); // Definindo que todos caminhos que estiverem em PUBLIC_MATCHERS serão permitidos.
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));//Filtro de autenticação
