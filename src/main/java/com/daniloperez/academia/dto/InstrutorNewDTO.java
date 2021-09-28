@@ -29,10 +29,8 @@ public class InstrutorNewDTO implements Serializable{
 	@CPF
 	private String cpf;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Past
 	private Date data_nasc;
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_cad;
 	
 	private char sexo;

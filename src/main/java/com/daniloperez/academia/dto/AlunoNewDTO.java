@@ -35,10 +35,8 @@ public class AlunoNewDTO implements Serializable{
 	private String cpf;
 	@Enumerated(EnumType.STRING)
 	private BioTipo biotipo;
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Past
 	private Date data_nasc;
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data_cad;
 	
 	private char sexo;
