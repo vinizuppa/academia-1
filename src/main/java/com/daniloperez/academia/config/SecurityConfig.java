@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/alunos/**",
 			"/instrutores/**",
 			"/estabelecimentos/**",
+			"/avaliacoes/**",
 			"/auth/forgot/**"
 	};
 	

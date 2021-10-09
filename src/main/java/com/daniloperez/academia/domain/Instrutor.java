@@ -33,6 +33,10 @@ public class Instrutor extends Usuario{
 		
 	}
 	
+	public Instrutor(Integer integer, Object object, Object object2, Object object3, Object object4, Object object5, Object object6, Object object7, Object object8) {
+		
+	}
+	
 	public Instrutor(Integer id,String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, String numCrf, String senha) {
 		super(id, nome, email, data_nasc, data_cad, sexo, senha);
 		this.numCrf = numCrf;

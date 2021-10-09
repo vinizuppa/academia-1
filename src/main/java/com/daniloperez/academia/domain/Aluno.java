@@ -36,6 +36,10 @@ public class Aluno extends Usuario{
 	public Aluno() {
 		
 	}
+	
+	public Aluno(Integer integer, Object object, Object object2, Object object3, Object object4, Object object5, Object object6, Object object7, Object object8, Object object9, Object object10, Object object11) {
+		
+	}
 
 	public Aluno(Integer id,BioTipo biotipo, String nome, String email, String cpf, Date data_nasc, Date data_cad, char sexo, double peso, double altura, double imc, String senha) {
 		super(id, nome, email, data_nasc, data_cad, sexo, senha);

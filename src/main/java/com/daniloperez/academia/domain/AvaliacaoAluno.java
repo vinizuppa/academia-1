@@ -50,7 +50,7 @@ public class AvaliacaoAluno implements Serializable{
 	}
 
 
-	public AvaliacaoAluno(Integer id, double altura, double peso, double imc, String obs, Date data, Aluno aluno, Instrutor instrutor) {
+	public AvaliacaoAluno(Integer id, double altura, double peso, double imc, String obs, Date data) {
 		super();
 		this.id = id;
 		this.altura = altura;
@@ -58,8 +58,6 @@ public class AvaliacaoAluno implements Serializable{
 		this.imc = imc;
 		this.obs = obs;
 		this.data = data;
-		this.aluno = aluno;
-		this.setInstrutor(instrutor);
 	}
 
 

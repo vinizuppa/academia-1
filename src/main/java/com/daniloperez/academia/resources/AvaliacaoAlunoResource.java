@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.AvaliacaoAluno;
+import com.daniloperez.academia.dto.AlunoNewDTO;
+import com.daniloperez.academia.dto.AvaliacaoAlunonewDTO;
 import com.daniloperez.academia.services.AvaliacaoAlunoService;
 
 @RestController
@@ -35,9 +38,18 @@ public class AvaliacaoAlunoResource {
 	
 	
 	//Configurando o metodo POST para AvaliacaoAluno
+	//@RequestMapping(method=RequestMethod.POST)
+	//public ResponseEntity<Void> insert(@Valid @RequestBody AvaliacaoAluno obj){ //O @RequestBody faz o JSON ser convertido para objeto java automaticamente.
+	//	service.insert(obj);
+	//	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//Chamada que pega a URI do novo recurso que foi add no banco
+	//	return ResponseEntity.created(uri).build();
+//	}
+	
+	//Configurando o metodo POST para AvaliacaoAluno
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody AvaliacaoAluno obj){ //O @RequestBody faz o JSON ser convertido para objeto java automaticamente.
-		service.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody AvaliacaoAlunonewDTO objDto){ //O @RequestBody faz o JSON ser convertido para objeto java automaticamente.
+		AvaliacaoAluno obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//Chamada que pega a URI do novo recurso que foi add no banco
 		return ResponseEntity.created(uri).build();
 	}
