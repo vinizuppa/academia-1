@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.daniloperez.academia.domain.enums.Perfil;
 @Entity
@@ -25,6 +25,10 @@ public class Estabelecimento extends Usuario {
 	private Integer id;
 	private String razao_social;
 	private String cnpj;
+	
+	@ManyToOne
+	@JoinColumn(name="plano_id")
+	private Plano plano;
 	
 	@ManyToMany
 	@JoinTable(name = "ESTABELECIMENTO_CATEGORIA",
@@ -45,10 +49,12 @@ public class Estabelecimento extends Usuario {
 	}
 
 	public Estabelecimento(Integer id, String nome, String email, String razao_social, String cnpj, Date data_nasc,
-			Date data_cad, char sexo, String senha) {
+			Date data_cad, char sexo, String senha, Plano plano) {
 		super(id, nome, email, data_nasc, data_cad, sexo, senha);
 		this.razao_social = razao_social;
 		this.cnpj = cnpj;
+		this.setPlano(plano);
+		addPerfil(Perfil.ESTABELECIMENTO);
 	}
 
 	public Integer getId() {
@@ -89,6 +95,14 @@ public class Estabelecimento extends Usuario {
 
 	public void setInstrutores(List<Instrutor> instrutores) {
 		this.instrutores = instrutores;
+	}
+
+	public Plano getPlano() {
+		return plano;
+	}
+
+	public void setPlano(Plano plano) {
+		this.plano = plano;
 	}
 
 	@Override

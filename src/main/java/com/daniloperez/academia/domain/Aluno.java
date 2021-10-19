@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.daniloperez.academia.domain.enums.BioTipo;
 import com.daniloperez.academia.domain.enums.Perfil;
@@ -32,6 +33,9 @@ public class Aluno extends Usuario{
 	@JsonIgnore
 	@OneToMany(mappedBy = "aluno", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar o aluno do banco deve ser apagado os scripts treinos dele também)
 	private List<ScriptTreino> scripts = new ArrayList<>();
+	
+	@OneToOne(mappedBy="aluno", cascade=CascadeType.ALL)
+	private Matricula matricula;
 	
 	public Aluno() {
 		
@@ -106,6 +110,14 @@ public class Aluno extends Usuario{
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Matricula getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(Matricula matricula) {
+		this.matricula = matricula;
 	}
 	
 	

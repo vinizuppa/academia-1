@@ -16,6 +16,8 @@ import com.daniloperez.academia.domain.Endereco;
 import com.daniloperez.academia.domain.Estabelecimento;
 import com.daniloperez.academia.domain.Estado;
 import com.daniloperez.academia.domain.Instrutor;
+import com.daniloperez.academia.domain.Matricula;
+import com.daniloperez.academia.domain.Plano;
 import com.daniloperez.academia.domain.enums.BioTipo;
 import com.daniloperez.academia.domain.enums.Perfil;
 import com.daniloperez.academia.repositories.AlunoRepository;
@@ -26,6 +28,8 @@ import com.daniloperez.academia.repositories.EnderecoRepository;
 import com.daniloperez.academia.repositories.EstabelecimentoRepository;
 import com.daniloperez.academia.repositories.EstadoRepository;
 import com.daniloperez.academia.repositories.InstrutorRepository;
+import com.daniloperez.academia.repositories.MatriculaRepository;
+import com.daniloperez.academia.repositories.PlanoRepository;
 
 @Service
 public class DBservice {
@@ -45,6 +49,10 @@ public class DBservice {
 	private EstabelecimentoRepository estabelecimentoRepository;
 	@Autowired
 	AtividadeRepository atividadeRepository;
+	@Autowired
+	private PlanoRepository planoRepository;
+	@Autowired
+	private MatriculaRepository matriculaRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -70,10 +78,19 @@ public class DBservice {
 				cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");//Mascara de formatação para instanciar data
-				//Instanciando 1 Aluno
+				
+				//Instanciando 3 Alunos
 				Aluno al1 = new Aluno(null, BioTipo.ECTOMORFO, "Vinicius Zuppa", "vcordeiro12@gmail.com", "47209082840", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100, pe.encode("senhateste"));
 				al1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));//Instanciando 2 Telefones)
 				al1.addPerfil(Perfil.ALUNO);
+				
+				Aluno al2 = new Aluno(null, BioTipo.ECTOMORFO, "Danilo Perez", "daniloperez@gmail.com", "56258756866", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100, pe.encode("senhateste"));
+				al2.getTelefones().addAll(Arrays.asList("72623332", "3938393"));//Instanciando 2 Telefones)
+				al2.addPerfil(Perfil.ALUNO);
+				
+				Aluno al3 = new Aluno(null, BioTipo.ECTOMORFO, "Renan Ciciliato", "renanzin@gmail.com", "56872345996", sdf.parse("15/02/2001"), sdf.parse("05/08/2021"), 'M', 80.55, 1.71, 100, pe.encode("senhateste"));
+				al3.getTelefones().addAll(Arrays.asList("35715964", "35715982"));//Instanciando 2 Telefones)
+				al3.addPerfil(Perfil.ALUNO);
 				
 				//Instanciando 2 endereços
 				Endereco e1 = new Endereco (null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", al1, c1);
@@ -81,9 +98,11 @@ public class DBservice {
 				
 				//Indicando qual os endereços do aluno
 				al1.getEnderecos().addAll(Arrays.asList(e1, e2));
+				al2.getEnderecos().addAll(Arrays.asList(e1));
+				al3.getEnderecos().addAll(Arrays.asList(e2));
 				
 				//Salvando Aluno no banco
-				alunoRepository.saveAll(Arrays.asList(al1));
+				alunoRepository.saveAll(Arrays.asList(al1, al2, al3));
 				
 				//Salvando Endereco no banco
 				enderecoRepository.saveAll(Arrays.asList(e1,e2));
@@ -123,16 +142,32 @@ public class DBservice {
 				//Salvando Instrutor no banco
 				instrutorRepository.saveAll(Arrays.asList(is1, is2, is3));
 				
+				// Instanciando 3 Planos
+				Plano plano1 = new Plano(null, 59.90, "Plano Básico", "Academia possui de 1 a 3 categorias de atividades físicas");
+				Plano plano2 = new Plano(null, 119.80, "Plano Intermediário", "Academia possui de 4 a 7 categorias de atividades físicas");
+				Plano plano3 = new Plano(null, 179.70, "Plano Avançado", "Academia possui 7 ou mais categorias de atividades físicas");
+				
+				// Salvando Planos no banco
+				planoRepository.saveAll(Arrays.asList(plano1, plano2, plano3));
+
+				// Instanciando 1 matrícula
+				Matricula matri1 = new Matricula(null, sdf.parse("10/10/2021"), plano1, al1, null);
+				Matricula matri2 = new Matricula(null, sdf.parse("05/09/2021"), plano2, al2, null);
+				Matricula matri3 = new Matricula(null, sdf.parse("25/08/2021"), plano3, al3, null);
+				
+				// Salvando matrículas no banco
+				matriculaRepository.saveAll(Arrays.asList(matri1, matri2, matri3));
+				
 				// Instancianto 3 Estabelecimentos
-				Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "asv@hotmail.com", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"), 'N', "senha123");
+				Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "asv@hotmail.com", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"), 'N', "senha123", plano1);
 				estab1.getTelefones().addAll(Arrays.asList("14665239520", "18569253462"));
 				estab1.addPerfil(Perfil.ESTABELECIMENTO);
 				
-				Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "tste@teste.com", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"), 'N',"senha123");
+				Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "tste@teste.com", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"), 'N',"senha123", plano2);
 				estab2.getTelefones().addAll(Arrays.asList("14995642031", "14997652380"));
 				estab2.addPerfil(Perfil.ESTABELECIMENTO);
 				
-				Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "teste@hotmail.com", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"), 'N',"senha123");
+				Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "teste@hotmail.com", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"), 'N',"senha123", plano3);
 				estab3.getTelefones().addAll(Arrays.asList("11884625310", "2155926644"));
 				estab3.addPerfil(Perfil.ESTABELECIMENTO);
 				
@@ -149,8 +184,7 @@ public class DBservice {
 				// Criando associação de Estabelecimentos com Categorias
 				estab1.getCategorias().addAll(Arrays.asList(cat3));
 				estab2.getCategorias().addAll(Arrays.asList(cat2));
-				estab3.getCategorias().addAll(Arrays.asList(cat1, cat3));
-				
+				estab3.getCategorias().addAll(Arrays.asList(cat1, cat3));				
 				
 				// Criando associação de Instrutores com Estabelecimentos
 				is1.getEstabelecimentos().addAll(Arrays.asList(estab1, estab2));
@@ -161,7 +195,6 @@ public class DBservice {
 				estab1.getInstrutores().addAll(Arrays.asList(is1, is3));
 				estab2.getInstrutores().addAll(Arrays.asList(is1, is2));
 				estab3.getInstrutores().addAll(Arrays.asList(is3));
-				
 				
 				//Salvando Endereco no banco
 				enderecoRepository.saveAll(Arrays.asList(e3, e4, e5));		
