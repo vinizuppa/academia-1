@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.AvaliacaoAluno;
+import com.daniloperez.academia.dto.AvaliacaoAlunonewDTO;
 
 
 //Aqui iremos realizar acesso a dados. Pode ser: Buscar, salvar, deletar,

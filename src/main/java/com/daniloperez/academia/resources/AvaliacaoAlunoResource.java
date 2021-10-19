@@ -67,7 +67,7 @@ public class AvaliacaoAlunoResource {
 	public ResponseEntity<Page<AvaliacaoAluno>> findPage(
 		@RequestParam(value="page", defaultValue="0") Integer page, 
 		@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-		@RequestParam(value="orderBy", defaultValue="dataCriacao") String orderBy, 
+		@RequestParam(value="orderBy", defaultValue="data") String orderBy, 
 		@RequestParam(value="direction", defaultValue="DESC") String direction) {
 		Page<AvaliacaoAluno> list = service.findPage(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);

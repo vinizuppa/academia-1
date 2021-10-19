@@ -22,7 +22,7 @@ public class AvaliacaoAlunonewDTO implements Serializable{
 	@NotEmpty(message="Preenchimento obrigatório") 
 	@Size(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String obs;
-	@JsonFormat(pattern = "dd/MM/yyyy")
+
 	private Date data;
 	
 	private Integer alunoId;
