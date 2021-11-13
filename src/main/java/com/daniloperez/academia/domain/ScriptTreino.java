@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import com.daniloperez.academia.domain.enums.Ativo;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,8 +43,9 @@ public class ScriptTreino implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Ativo ativo;
 	
-	@OneToMany(mappedBy = "id.scriptTreino",  cascade=CascadeType.ALL)//Por ter uma classe auxiliar para criar a chave composta do ScriptTreino(que é a ScriptTreinoPK), é necessário usar esse id.script
-	private Set<ItemScript> itens = new HashSet<>();
+	//@OneToMany(mappedBy = "id.scriptTreino",  cascade=CascadeType.ALL)//Por ter uma classe auxiliar para criar a chave composta do ScriptTreino(que é a ScriptTreinoPK), é necessário usar esse id.script
+	//@OrderBy("diasemana")
+	//private Set<ItemScript> itens = new HashSet<>();
 	
 	public ScriptTreino() {
 
@@ -99,13 +101,13 @@ public class ScriptTreino implements Serializable{
 		this.ativo = ativo;
 	}
 
-	public Set<ItemScript> getItens() {
-		return itens;
-	}
+	//public Set<ItemScript> getItens() {
+	//	return itens;
+	//}
 
-	public void setItens(Set<ItemScript> itens) {
-		this.itens = itens;
-	}
+//	public void setItens(Set<ItemScript> itens) {
+//		this.itens = itens;
+//	}
 
 	@Override
 	public int hashCode() {

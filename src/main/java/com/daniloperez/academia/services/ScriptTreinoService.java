@@ -1,14 +1,16 @@
 package com.daniloperez.academia.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import com.daniloperez.academia.domain.Aluno;
 import com.daniloperez.academia.domain.ItemScript;
 import com.daniloperez.academia.domain.ScriptTreino;
 import com.daniloperez.academia.domain.enums.Ativo;
+import com.daniloperez.academia.dto.ScriptTreinoDTO;
 import com.daniloperez.academia.dto.ScriptTreinoNewDTO;
 import com.daniloperez.academia.repositories.ItemScriptRepository;
 import com.daniloperez.academia.repositories.ScriptTreinoRepository;
@@ -40,18 +43,23 @@ public class ScriptTreinoService {
 			return obj.orElseThrow(() -> new ObjectNotFoundException("Treino não encontrado! Id: " + id + ", Tipo: " + ScriptTreino.class.getName()));
 		}
 		
-	@PreAuthorize("hasAnyRole('ADMIN')")	
+
 	//Incluir ScriptTreino
 	@Transactional
-	public ScriptTreino insert(ScriptTreino obj) {
-		obj.setId(null);
-		obj.setDataCriacao(new Date());
-		obj.setAtivo(Ativo.INATIVO);
+	public ScriptTreinoDTO insert(ScriptTreinoDTO obj) {
+		ScriptTreino script = new ScriptTreino();
+		script.setDataCriacao(new Date());
+		script.setAtivo(Ativo.INATIVO);
+		script.setAluno(obj.getAluno());
+		script.setInstrutor(obj.getInstrutor());
+		script = repo.save(script);
+		
+		System.out.println(obj.getItens().size());
 		for (ItemScript is : obj.getItens()) {
-			is.setScript(obj);
+			is.setScriptTreino(script);
+			ItemScript itemScript = itemScriptRepository.save(is);
+			System.out.println(itemScript);
 		}
-		obj = repo.save(obj);
-		itemScriptRepository.saveAll(obj.getItens());
 		return obj;
 	}
 	
@@ -83,7 +91,7 @@ public class ScriptTreinoService {
 	}
 	
 	//Buscar ScriptsTreinos somente do aluno que está logado 
-	public Page<ScriptTreino> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+	public Page<ScriptTreinoDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		UserSS user = UserService.authenticated();
 		//Verifica se o usuário está autenticado.
 		if(user==null) {
@@ -92,7 +100,24 @@ public class ScriptTreinoService {
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		Aluno aluno = alunoService.find(user.getId());
-		return repo.findByAluno(aluno, pageRequest);
+		Page <ScriptTreino> script = repo.findByAluno(aluno, pageRequest);
+		
+		Page<ScriptTreinoDTO> dtoPage = script.map(new Function<ScriptTreino, ScriptTreinoDTO>() {
+		    @Override
+		    public ScriptTreinoDTO apply(ScriptTreino scriptTreino) {
+		    	ScriptTreinoDTO dto = new ScriptTreinoDTO();
+		    	dto.setAluno(scriptTreino.getAluno());
+		    	dto.setAtivo(scriptTreino.getAtivo());
+		    	dto.setDataCriacao(scriptTreino.getDataCriacao());
+		    	dto.setInstrutor(scriptTreino.getInstrutor());
+		    	dto.setId(scriptTreino.getId());
+		    	dto.setItens(itemScriptRepository.findAllByScriptTreinoOrderByDiasemanaDesc(scriptTreino));
+
+		        return dto;
+		    }
+		});
+		
+		return dtoPage;
 	}
 
 }

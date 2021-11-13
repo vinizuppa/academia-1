@@ -24,9 +24,9 @@ public class Atividade implements Serializable{
 	private String descricao;
 	private String nome;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "id.atividade")
-	private Set<ItemScript> itens = new HashSet<>();
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "atividade_id")
+//	private Set<ItemScript> itens = new HashSet<>();
 	
 	public Atividade() {
 		
@@ -43,9 +43,9 @@ public class Atividade implements Serializable{
 	//O getScriptTreinos busca os itens de script e monta lista de ScriptsTreinos associados a esses itens
 	public List<ScriptTreino> getScriptTreinos(){
 		List<ScriptTreino> lista = new ArrayList<>();
-		for (ItemScript x : itens) {
-			lista.add(x.getScript());
-		}
+//		for (ItemScript x : itens) {
+//			lista.add(x.getScriptTreino());
+//		}
 		return lista;
 	}
 	
@@ -75,13 +75,13 @@ public class Atividade implements Serializable{
 	
 	
 	
-	public Set<ItemScript> getItens() {
-		return itens;
-	}
-
-	public void setItens(Set<ItemScript> itens) {
-		this.itens = itens;
-	}
+//	public Set<ItemScript> getItens() {
+//		return itens;
+//	}
+//
+//	public void setItens(Set<ItemScript> itens) {
+//		this.itens = itens;
+//	}
 
 	@Override
 	public int hashCode() {

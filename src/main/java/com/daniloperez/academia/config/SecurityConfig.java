@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/estabelecimentos/**",
 			"/estados/**",
 			"/alunos/**",
-			"/usuarios/**"
+			"/usuarios/**",
+			"/treinos/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
@@ -55,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/instrutores/**",
 			"/estabelecimentos/**",
 			"/avaliacoes/**",
-			"/auth/forgot/**"
+			"/auth/forgot/**",
+			"/treinos/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_PUT = {//Definindo quais end-points serão liberados para POST sem autenticação e autorização.
