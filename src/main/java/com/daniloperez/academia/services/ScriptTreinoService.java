@@ -1,6 +1,5 @@
 package com.daniloperez.academia.services;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
@@ -8,18 +7,22 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.daniloperez.academia.domain.Aluno;
+import com.daniloperez.academia.domain.Atividade;
+import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.ItemScript;
 import com.daniloperez.academia.domain.ScriptTreino;
 import com.daniloperez.academia.domain.enums.Ativo;
 import com.daniloperez.academia.dto.ScriptTreinoDTO;
 import com.daniloperez.academia.dto.ScriptTreinoNewDTO;
+import com.daniloperez.academia.repositories.AlunoRepository;
+import com.daniloperez.academia.repositories.AtividadeRepository;
+import com.daniloperez.academia.repositories.InstrutorRepository;
 import com.daniloperez.academia.repositories.ItemScriptRepository;
 import com.daniloperez.academia.repositories.ScriptTreinoRepository;
 import com.daniloperez.academia.security.UserSS;
@@ -33,7 +36,17 @@ public class ScriptTreinoService {
 	private ScriptTreinoRepository repo;
 	
 	@Autowired
+	private AtividadeRepository atvRepo;
+	
+	@Autowired
 	private ItemScriptRepository itemScriptRepository;
+	
+	@Autowired
+	private AlunoRepository alunoRepository;
+	
+	@Autowired
+	private InstrutorRepository instrutorRepository;
+	
 	
 	@Autowired
 	private AlunoService alunoService;
@@ -50,16 +63,25 @@ public class ScriptTreinoService {
 		ScriptTreino script = new ScriptTreino();
 		script.setDataCriacao(new Date());
 		script.setAtivo(Ativo.INATIVO);
-		script.setAluno(obj.getAluno());
-		script.setInstrutor(obj.getInstrutor());
+		
+		Aluno aluno = alunoRepository.findById(obj.getAluno().getId()).get();
+		script.setAluno(aluno);
+		
+		
+		Instrutor instrutor = instrutorRepository.findById(obj.getInstrutor().getId()).get();
+		script.setInstrutor(instrutor);
 		script = repo.save(script);
 		
 		System.out.println(obj.getItens().size());
+		
 		for (ItemScript is : obj.getItens()) {
+			Atividade atividade = atvRepo.findById(is.getAtividade().getId()).get();
+			is.setAtividade(atividade);
 			is.setScriptTreino(script);
 			ItemScript itemScript = itemScriptRepository.save(is);
 			System.out.println(itemScript);
 		}
+		
 		return obj;
 	}
 	
