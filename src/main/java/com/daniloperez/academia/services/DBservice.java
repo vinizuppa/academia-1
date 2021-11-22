@@ -17,8 +17,11 @@ import com.daniloperez.academia.domain.Estabelecimento;
 import com.daniloperez.academia.domain.Estado;
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.domain.Matricula;
+import com.daniloperez.academia.domain.Pagamento;
+import com.daniloperez.academia.domain.PagamentoViaPix;
 import com.daniloperez.academia.domain.Plano;
 import com.daniloperez.academia.domain.enums.BioTipo;
+import com.daniloperez.academia.domain.enums.EstadoPagamento;
 import com.daniloperez.academia.domain.enums.Perfil;
 import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.AtividadeRepository;
@@ -29,6 +32,7 @@ import com.daniloperez.academia.repositories.EstabelecimentoRepository;
 import com.daniloperez.academia.repositories.EstadoRepository;
 import com.daniloperez.academia.repositories.InstrutorRepository;
 import com.daniloperez.academia.repositories.MatriculaRepository;
+import com.daniloperez.academia.repositories.PagamentoRepository;
 import com.daniloperez.academia.repositories.PlanoRepository;
 
 @Service
@@ -53,9 +57,10 @@ public class DBservice {
 	private PlanoRepository planoRepository;
 	@Autowired
 	private MatriculaRepository matriculaRepository;
-	
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	 public void instanciateTestDatabase() throws ParseException {
 		//Instanciando 2 estados
@@ -155,19 +160,31 @@ public class DBservice {
 				Matricula matri2 = new Matricula(null, sdf.parse("05/09/2021"), plano2, al2, null);
 				Matricula matri3 = new Matricula(null, sdf.parse("25/08/2021"), plano3, al3, null);
 				
+				// Instanciando 3 pagamentos
+				Pagamento pag1 = new PagamentoViaPix(null, EstadoPagamento.PAGO, matri1, sdf.parse("10/09/2021"), sdf.parse("05/09/2021"), "66666666666");
+				Pagamento pag2 = new PagamentoViaPix(null, EstadoPagamento.PAGO, matri2, sdf.parse("10/10/2021"), sdf.parse("05/10/2021"), "66666666666");
+				Pagamento pag3 = new PagamentoViaPix(null, EstadoPagamento.PENDENTE, matri3, sdf.parse("10/10/2021"), null, "66666666666");
+				
+				matri1.setPagamento(pag1);
+				matri2.setPagamento(pag2);
+				matri3.setPagamento(pag3);
+				
+				// Salvando pagamentos no banco
+				pagamentoRepository.saveAll(Arrays.asList(pag1, pag2, pag3));
+				
 				// Salvando matrículas no banco
 				matriculaRepository.saveAll(Arrays.asList(matri1, matri2, matri3));
 				
 				// Instancianto 3 Estabelecimentos
-				Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "asv@hotmail.com", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"), 'N', "senha123", plano1);
+				Estabelecimento estab1 = new Estabelecimento(null, "CrossGym", "asv@hotmail.com", "Academia CrossGym S.A.", "73205304000169", sdf.parse("15/05/2002"), sdf.parse("11/07/2021"), 'N', pe.encode("senhateste"), plano1);
 				estab1.getTelefones().addAll(Arrays.asList("14665239520", "18569253462"));
 				estab1.addPerfil(Perfil.ESTABELECIMENTO);
 				
-				Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "tste@teste.com", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"), 'N',"senha123", plano2);
+				Estabelecimento estab2 = new Estabelecimento(null, "HitDance", "tste@teste.com", "Academia de dança de Ourinhos LTDA", "08002666000190", sdf.parse("20/08/2015"), sdf.parse("10/08/2021"), 'N', pe.encode("senhateste"), plano2);
 				estab2.getTelefones().addAll(Arrays.asList("14995642031", "14997652380"));
 				estab2.addPerfil(Perfil.ESTABELECIMENTO);
 				
-				Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "teste@hotmail.com", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"), 'N',"senha123", plano3);
+				Estabelecimento estab3 = new Estabelecimento(null, "Monsters Gym", "teste@hotmail.com", "Monsters Gym Academia S.A.", "45809031000126", sdf.parse("31/05/1996"), sdf.parse("10/08/2021"), 'N', pe.encode("senhateste"), plano3);
 				estab3.getTelefones().addAll(Arrays.asList("11884625310", "2155926644"));
 				estab3.addPerfil(Perfil.ESTABELECIMENTO);
 				
