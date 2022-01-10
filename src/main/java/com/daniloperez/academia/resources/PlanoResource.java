@@ -8,21 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daniloperez.academia.domain.Categoria;
-import com.daniloperez.academia.services.CategoriaService;
+import com.daniloperez.academia.domain.Plano;
+import com.daniloperez.academia.services.PlanoService;
 
 @RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResource {
+@RequestMapping(value="/planos")
+public class PlanoResource {
 	
 	@Autowired
-	private CategoriaService service;
-	
+	private PlanoService service;
 
-	//Configurando para listar todos Categorias
+	//Configurando para listar todos Planos
 		@RequestMapping(method=RequestMethod.GET)
-		public ResponseEntity<List<Categoria>> findAll(){
-			List<Categoria> list = service.findAll();
+		public ResponseEntity<List<Plano>> findAll(){
+			List<Plano> list = service.findAll();
 			return ResponseEntity.ok().body(list);
 		}
 }

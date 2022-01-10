@@ -1,17 +1,12 @@
 package com.daniloperez.academia.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Categoria implements Serializable {
@@ -23,9 +18,6 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy="categorias")
-	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 	
 	public Categoria() {
 		
@@ -51,14 +43,6 @@ public class Categoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<Estabelecimento> getEstabelecimentos() {
-		return estabelecimentos;
-	}
-
-	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
-		this.estabelecimentos = estabelecimentos;
 	}
 
 	@Override

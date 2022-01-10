@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AvaliacaoAlunonewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;

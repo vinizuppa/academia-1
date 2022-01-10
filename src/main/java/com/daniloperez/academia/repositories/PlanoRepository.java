@@ -14,5 +14,5 @@ import com.daniloperez.academia.domain.Plano;
 @Repository
 public interface PlanoRepository extends JpaRepository<Plano, Integer>{
 	@Transactional(readOnly=true)
-	public List<Plano> findAllByOrderByNome();//Traz todos estados cadastrados, ordenados por nome
+	public List<Plano> findAllByOrderById();//Traz todos estados cadastrados, ordenados por nome
 }

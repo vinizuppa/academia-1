@@ -16,7 +16,6 @@ import com.daniloperez.academia.domain.AvaliacaoAluno;
 import com.daniloperez.academia.domain.Instrutor;
 import com.daniloperez.academia.dto.AvaliacaoAlunoDTO;
 import com.daniloperez.academia.dto.AvaliacaoAlunonewDTO;
-import com.daniloperez.academia.dto.InstrutorDTO;
 import com.daniloperez.academia.repositories.AlunoRepository;
 import com.daniloperez.academia.repositories.AvaliacaoAlunoRepository;
 import com.daniloperez.academia.repositories.InstrutorRepository;

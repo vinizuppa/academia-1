@@ -1,17 +1,12 @@
 package com.daniloperez.academia.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Plano implements Serializable {
@@ -24,13 +19,10 @@ public class Plano implements Serializable {
 	private String nome;
 	private String descricao;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "plano")
-	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "plano")
-	private List<Matricula> matriculas = new ArrayList<>();
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "plano")
+//	private List<Matricula> matriculas = new ArrayList<>();
 	
 	public Plano() {
 		
@@ -76,20 +68,18 @@ public class Plano implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public List<Estabelecimento> getEstabelecimentos() {
-		return estabelecimentos;
-	}
 
-	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
-		this.estabelecimentos = estabelecimentos;
-	}
+//	public List<Matricula> getMatriculas() {
+//		return matriculas;
+//	}
+//
+//	public void setMatriculas(List<Matricula> matriculas) {
+//		this.matriculas = matriculas;
+//	}
 
-	public List<Matricula> getMatriculas() {
-		return matriculas;
-	}
-
-	public void setMatriculas(List<Matricula> matriculas) {
-		this.matriculas = matriculas;
+	@Override
+	public String toString() {
+		return "Plano [id=" + id + ", valor=" + valor + ", nome=" + nome + ", descricao=" + descricao + "]";
 	}
 
 	@Override

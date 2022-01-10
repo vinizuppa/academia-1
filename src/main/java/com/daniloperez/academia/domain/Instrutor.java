@@ -17,9 +17,6 @@ public class Instrutor extends Usuario{
 	private static final long serialVersionUID = 1L;
 	private String numCrf;
 	private String cpf;
-	@JsonIgnore
-	@ManyToMany(mappedBy="instrutores")
-	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "instrutor", cascade=CascadeType.ALL)// cascade=CascadeType.ALL serve para indicar que se for apagar o instrutor do banco deve ser apagado as avaliações dele também
@@ -68,13 +65,6 @@ public class Instrutor extends Usuario{
 		this.scripts = scripts;
 	}
 
-	public List<Estabelecimento> getEstabelecimentos() {
-		return estabelecimentos;
-	}
-
-	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
-		this.estabelecimentos = estabelecimentos;
-	}
 
 	public String getCpf() {
 		return cpf;

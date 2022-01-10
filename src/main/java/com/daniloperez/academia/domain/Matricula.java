@@ -2,18 +2,14 @@ package com.daniloperez.academia.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Matricula implements Serializable {
@@ -22,40 +18,29 @@ public class Matricula implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Date dataMatricula;
+	
+	private Date dataMatricula;	
 	
 	@ManyToOne
 	@JoinColumn(name="plano_id")
 	private Plano plano;
 	
-	@JsonIgnore
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="aluno_id")
 	private Aluno aluno;
-	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy = "matricula")
-	private Pagamento pagamento;
 	
 	public Matricula() {
 		
 	}
 
-	public Matricula(Integer id, Date dataMatricula, Plano plano, Aluno aluno, Pagamento pagamento) {
+	public Matricula(Date dataMatricula, Plano plano, Aluno aluno) {
 		super();
-		this.id = id;
-		this.dataMatricula = dataMatricula;
+		this.id = null;
 		this.setPlano(plano);
 		this.setAluno(aluno);
-		this.setPagamento(pagamento);
+		this.dataMatricula = dataMatricula;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Date getDataMatricula() {
 		return dataMatricula;
@@ -64,7 +49,7 @@ public class Matricula implements Serializable {
 	public void setDataMatricula(Date dataMatricula) {
 		this.dataMatricula = dataMatricula;
 	}
-
+	
 	public Plano getPlano() {
 		return plano;
 	}
@@ -80,18 +65,28 @@ public class Matricula implements Serializable {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+	
+	
 
-	public Pagamento getPagamento() {
-		return pagamento;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Matricula [dataMatricula=" + dataMatricula + ", plano=" + plano + ", aluno=" + aluno + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((aluno == null) ? 0 : aluno.hashCode());
+		return result;
 	}
 
 	@Override
@@ -103,6 +98,17 @@ public class Matricula implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Matricula other = (Matricula) obj;
-		return Objects.equals(id, other.id);
+		if (aluno == null) {
+			if (other.aluno != null)
+				return false;
+		} else if (!aluno.equals(other.aluno))
+			return false;
+		return true;
 	}
+	
+	
+
+
+	
+	
 }
