@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.daniloperez.academia.domain.*;
+import com.daniloperez.academia.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,9 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.daniloperez.academia.domain.Categoria;
-import com.daniloperez.academia.domain.Estabelecimento;
-import com.daniloperez.academia.domain.Plano;
 import com.daniloperez.academia.domain.enums.Perfil;
 import com.daniloperez.academia.dto.EstabelecimentoDTO;
 import com.daniloperez.academia.repositories.CategoriaRepository;
@@ -37,6 +36,9 @@ public class EstabelecimentoService {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepo;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
 	private S3Service s3Service;
@@ -84,10 +86,11 @@ public class EstabelecimentoService {
 		public Estabelecimento insert(EstabelecimentoDTO objDto) {
 			
 			Estabelecimento est = new Estabelecimento(null, objDto.getNome(), objDto.getEmail(), objDto.getRazao_social(), objDto.getCnpj(), objDto.getData_nasc(), objDto.getData_cad(), objDto.getSexo(), pe.encode(objDto.getSenha()));
-			
+			Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+			Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), est, cid);
+			est.getEnderecos().add(end);
 			Optional<Categoria> categoria = categoriaRepo.findById(objDto.getCategoriaId());
 			est.setCategoria(categoria.get());
-			
 			Optional <Plano> plano = planoRepo.findById(objDto.getPlanoId());
 			est.setPlano(plano.get());
 			est.setData_cad(new Date());
