@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()// Definindo que somente POST que estiverem em PUBLIC_MATCHERS_POST serão permitidos.
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
-		.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_GET serão permitidos.
+		.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()// Definindo que somente GET que estiverem em PUBLIC_MATCHERS_PUT serão permitidos.
 		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated(); // Definindo que todos caminhos que estiverem em PUBLIC_MATCHERS serão permitidos.
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));//Filtro de autenticação
